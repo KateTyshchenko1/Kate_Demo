@@ -1,6 +1,5 @@
 [build]
-  command = "npm run build"
-  publish = "Pretty stuff"
+  publish = "."  # deploy current directory as-is (static files)
 
 [[headers]]
   for = "/seed.png"
