@@ -32,6 +32,15 @@
 </head>
 
 <body>
+    <a href="../index.html"
+        style="position:fixed;top:14px;left:18px;font-size:15px;text-decoration:none;color:#0077c8;z-index:10">←
+        Home</a>
+    <div id="intro"
+        style="position:fixed;top:20px;left:50%;transform:translateX(-50%);text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;color:#111;z-index:9;pointer-events:none">
+        <h1 style="margin:0;font-size:20px;font-weight:600">Breathe out, the seeds dance.</h1>
+        <p style="margin:4px 0 0;font-size:14px;color:#444">Hold phone ~20&nbsp;cm from mouth. Your exhale sends a
+            breeze.</p>
+    </div>
     <!-- Animated background layers (GPU-friendly) -->
     <div id="bg">
         <div class="bg-layer layerA" aria-hidden="true"></div>
@@ -41,7 +50,7 @@
     <div id="app">
         <div class="idle" id="idle">
             <h1>Seedrift</h1>
-            <p class="subtitle">Breathe out, the seeds dance.</p>
+            <p class="subtitle">Your exhale sends a breeze.</p>
             <button id="start" aria-label="Begin (will request microphone)">Begin</button>
             <p class="hint">Hold phone ~20 cm from mouth. Your exhale sends a breeze.</p>
             <div id="tooNoisy" class="banner hidden">Too noisy. Try a quieter spot or purse lips toward mic.</div>
