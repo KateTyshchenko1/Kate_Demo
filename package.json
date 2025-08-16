@@ -1,0 +1,7 @@
+{
+    "name": "pretty-stuff-site",
+    "private": true,
+    "scripts": {
+        "build": "cd \"Breath\" && npm ci --omit=optional --no-audit --progress=false && npm run build && rm -rf ../'Pretty stuff'/seedrift && mv dist ../'Pretty stuff'/seedrift"
+    }
+}

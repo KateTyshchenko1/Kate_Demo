@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seedrift</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" crossorigin src="assets/index-B84awPGj.js"></script>
+    <!-- hide UI & auto-start when standalone -->
+    <style>
+        #idle,
+        .topbar,
+        dialog {
+            display: none !important
+        }
+
+        .hud {
+            display: grid !important
+        }
+
+        body {
+            margin: 0;
+            background: #fff
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.top === window.self) { const btn = document.getElementById('start'); btn && btn.click(); }
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Animated background layers (GPU-friendly) -->
+    <div id="bg">
+        <div class="bg-layer layerA" aria-hidden="true"></div>
+        <div class="bg-layer layerB" aria-hidden="true"></div>
+        <div class="bg-noise" aria-hidden="true"></div>
+    </div>
+    <div id="app">
+        <div class="idle" id="idle">
+            <h1>Seedrift</h1>
+            <p class="subtitle">Breathe out, the seeds dance.</p>
+            <button id="start" aria-label="Begin (will request microphone)">Begin</button>
+            <p class="hint">Hold phone ~20 cm from mouth. Your exhale sends a breeze.</p>
+            <div id="tooNoisy" class="banner hidden">Too noisy. Try a quieter spot or purse lips toward mic.</div>
+        </div>
+
+        <div class="hud hidden" id="hud" style="display:none">
+            <div class="topbar">
+                <span id="exhaleDot" aria-label="exhale-indicator">●</span>
+                <span id="timer">00:00</span>
+                <button id="end">End</button>
+            </div>
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <dialog id="debrief">
+            <p id="stats">Breaths: 0 • Avg exhale: 0.0 s • Smoothness: 0.00</p>
+            <button id="restart">Restart</button>
+        </dialog>
+    </div>
+
+</body>
+
+</html>
