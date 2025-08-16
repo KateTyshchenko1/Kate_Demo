@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <a href="../index.html"
+    <a id="homeLink" href="../index.html"
         style="position:fixed;top:14px;left:18px;font-size:15px;text-decoration:none;color:#0077c8;z-index:10">←
         Home</a>
     <div id="intro"
@@ -41,6 +41,12 @@
         <p style="margin:4px 0 0;font-size:14px;color:#444">Hold phone ~20&nbsp;cm from mouth. Your exhale sends a
             breeze.</p>
     </div>
+    <script>
+        if (window.self !== window.top) {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('homeLink').style.display = 'none';
+        }
+    </script>
     <!-- Animated background layers (GPU-friendly) -->
     <div id="bg">
         <div class="bg-layer layerA" aria-hidden="true"></div>
