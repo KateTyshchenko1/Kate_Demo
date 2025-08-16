@@ -61,6 +61,11 @@
             border: 0;
             pointer-events: none;
         }
+
+        .thumb iframe.dandy {
+            transform: scale(0.9) translateY(-6%);
+            transform-origin: top left;
+        }
     </style>
 </head>
 
@@ -69,7 +74,7 @@
     <ul class="projects">
         <li>
             <a class="proj" href="dandelions/index.html">
-                <div class="thumb"><iframe src="dandelions/index.html" loading="lazy"
+                <div class="thumb"><iframe class="dandy" src="dandelions/index.html" loading="lazy"
                         sandbox="allow-scripts allow-same-origin"></iframe></div>
                 <span class="title">Dandelions</span>
             </a>
