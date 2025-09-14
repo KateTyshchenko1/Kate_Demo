@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <a id="homeLink" href="../index.html"
+    <a class="home" id="home" href="../index.html"
         style="position:fixed;top:14px;left:18px;font-size:15px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:400;text-decoration:none;color:#111;z-index:10">←
         Home</a>
     <div id="intro"
@@ -44,7 +44,7 @@
     <script>
         if (window.self !== window.top) {
             document.getElementById('intro').style.display = 'none';
-            document.getElementById('homeLink').style.display = 'none';
+            document.getElementById('home').style.display = 'none';
         }
     </script>
     <!-- Animated background layers (GPU-friendly) -->

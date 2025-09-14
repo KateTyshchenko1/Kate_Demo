@@ -12,16 +12,52 @@
 
         body {
             margin: 0;
+            /* left-align column like sidebar.io */
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-            padding: 32px 16px;
-            background: #fff;
-            max-width: 900px;
+            padding: clamp(20px, 3vw, 36px) clamp(10px, 3.5vw, 40px);
+            /* smaller side gutters */
+            background: #f7f4f3;
         }
 
         h1 {
             font-size: 1.6rem;
             font-weight: 600;
             margin: 0 0 24px 0
+        }
+
+        /* Hero */
+        .hero {
+            margin: 8px 0 clamp(24px, 4.5vw, 40px);
+            max-width: 60ch;
+        }
+
+        .hero-title {
+            font-size: clamp(1.9rem, 2.5vw + 1rem, 2.6rem);
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: #1f2937;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.05rem, 1.2vw + 0.6rem, 1.25rem);
+            margin: 0 0 6px 0;
+            color: #555;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .hero-body {
+            font-size: clamp(0.98rem, 0.8vw + 0.6rem, 1.08rem);
+            margin: 0 0 20px 0;
+            color: #444;
+        }
+
+        /* Section title (Projects) */
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            color: #1f2937;
         }
 
         .projects {
@@ -76,7 +112,11 @@
 </head>
 
 <body>
-    <h1>Small Web Experiments</h1>
+    <div class="hero">
+        <h1 class="hero-title">Kate Tyshchenko</h1>
+        <p class="hero-subtitle">Beta Forever</p>
+        <p class="hero-body">Traces of ideas before they harden.</p>
+    </div>
     <ul class="projects">
         <li>
             <a class="proj" href="dandelions/index.html">
@@ -97,6 +137,13 @@
                 <div class="thumb"><iframe src="themes/index.html" loading="lazy"
                         sandbox="allow-scripts allow-same-origin"></iframe></div>
                 <span class="title">Applied chaos</span>
+            </a>
+        </li>
+        <li>
+            <a class="proj" href="rorschach/index.html">
+                <div class="thumb"><iframe src="rorschach/index.html" loading="lazy"
+                        sandbox="allow-scripts allow-same-origin"></iframe></div>
+                <span class="title">Rorschach</span>
             </a>
         </li>
     </ul>

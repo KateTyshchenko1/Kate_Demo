@@ -448,7 +448,9 @@ const rScale = d3.scaleSqrt().domain([0, 10]).range([1.8, 4.5]); // slightly sma
 /* === Chart (responsive radial cluster) === */
 // ---- responsive layout -----------------------
 const M = 20;              // outer margin
-const LEGEND_W = 240;      // fixed legend column width
+// Responsive: treat screens under 768px as "narrow" (mobile portrait)
+const isNarrow = window.innerWidth < 768;
+const LEGEND_W = isNarrow ? 0 : 240;      // legend column only on wide screens
 
 const W = window.innerWidth;
 const H = window.innerHeight;
@@ -457,7 +459,7 @@ const availH = H - 2 * M;
 const size = Math.min(availW, availH); // square area for cluster
 const radius = size / 2 - 80;          // leave room for leaf labels
 
-const cx = LEGEND_W + availW / 2 + M;  // cluster center X
+const cx = LEGEND_W ? (LEGEND_W + availW / 2 + M) : (W / 2);  // center when no side legend
 const cy = H / 2;                      // center vertically
 
 const svg = d3.create("svg")
@@ -611,9 +613,61 @@ function hideTip() { tooltip.transition().style('opacity', 0); }
 nodes.on('mousemove', showTip).on('mouseleave', hideTip);
 labelsTxt.on('mousemove', showTip).on('mouseleave', hideTip);
 
-// Hide legend in thumbnail
-if (window.self !== window.top) {
+// Hide legend in thumbnail, and also hide desktop legend on narrow screens (use modal)
+if (window.self !== window.top || isNarrow) {
     legend.attr('display', 'none');
+}
+
+// Mobile legend modal setup
+if (isNarrow && window.self === window.top) {
+    const btn = document.getElementById('legendBtn');
+    if (btn) btn.style.display = 'block';
+
+    const sheet = document.getElementById('legendSheet');
+    const listDiv = document.getElementById('legendList');
+    if (listDiv && listDiv.childElementCount === 0) {
+        // populate legend list once
+        for (const [name, color] of branchColors.entries()) {
+            const row = document.createElement('div');
+            row.style.display = 'flex';
+            row.style.alignItems = 'center';
+            row.style.cursor = 'pointer';
+
+            const dot = document.createElement('span');
+            dot.style.width = '10px';
+            dot.style.height = '10px';
+            dot.style.borderRadius = '50%';
+            dot.style.background = color;
+            dot.style.display = 'inline-block';
+
+            const label = document.createElement('span');
+            label.textContent = ` ${name}`; // nbsp for spacing
+
+            row.appendChild(dot);
+            row.appendChild(label);
+
+            row.addEventListener('click', () => {
+                if (focused === name) {
+                    clearFocus();
+                } else {
+                    applyFocus(name);
+                }
+                sheet.close();
+            });
+
+            listDiv.appendChild(row);
+        }
+        // "Show all" pill
+        const showAll = document.createElement('button');
+        showAll.textContent = 'Show all';
+        showAll.style.cssText = 'grid-column:span 2;padding:6px 12px;font-size:13px;border:none;border-radius:14px;background:#eee;';
+        showAll.addEventListener('click', () => { clearFocus(); sheet.close(); });
+        listDiv.appendChild(showAll);
+    }
+
+    if (btn && sheet) {
+        btn.addEventListener('click', () => { sheet.showModal(); });
+    }
 }
 
 // Center title removed as per design feedback

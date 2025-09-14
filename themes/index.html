@@ -27,6 +27,16 @@
 <body>
     <a class="home" id="home" href="../index.html"
         style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:400">← Home</a>
+    <!-- Legend toggle (mobile) -->
+    <button id="legendBtn" aria-label="Show legend"
+        style="display:none;position:fixed;top:14px;right:18px;font-size:22px;line-height:20px;background:none;border:none;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;z-index:10">☰</button>
+    <!-- Bottom-sheet style dialog that will be populated via JS on small screens -->
+    <dialog id="legendSheet"
+        style="border:none;border-radius:14px 14px 0 0;padding:20px 24px 28px;max-width:480px;width:90%;position:fixed;bottom:0;left:50%;transform:translateX(-50%);font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif">
+        <h2 style="margin:0 0 12px 0;font-size:15px;font-weight:600">Themes</h2>
+        <div id="legendList" style="display:grid;grid-template-columns:repeat(2,auto);gap:12px 18px;font-size:13px">
+        </div>
+    </dialog>
     <div id="info"
         style="position:fixed;top:48px;left:18px;max-width:240px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;z-index:10">
         <h2 style="margin:0 0 6px 0;font-size:15px;font-weight:600">Explore</h2>
