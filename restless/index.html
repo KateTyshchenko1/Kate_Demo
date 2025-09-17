@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Restless</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #000;
+            overflow: hidden
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh
+        }
+
+        a.home {
+            position: fixed;
+            top: 14px;
+            left: 18px;
+            z-index: 10;
+            font: 400 15px -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+            color: #fff;
+            text-decoration: none;
+            mix-blend-mode: difference
+        }
+    </style>
+</head>
+
+<body>
+    <a class="home" id="home" href="../index.html">← Home</a>
+    <script>
+        if (window.self !== window.top) { const h = document.getElementById('home'); if (h) h.style.display = 'none'; }
+    </script>
+    <script type="module" src="./sketch.js"></script>
+</body>
+
+</html>
