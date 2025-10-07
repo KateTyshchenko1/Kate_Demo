@@ -116,9 +116,13 @@ function resetTimerUI() {
         const secs = secondsForTimeBucket(current.time);
         const m = String(Math.floor(secs / 60)).padStart(1, '0');
         const s = String(secs % 60).padStart(2, '0');
-        $('#timerBtn').textContent = `Start ${m}:${s}`;
+        const btn = $('#timerBtn');
+        btn.dataset.state = 'idle';
+        btn.textContent = `Start ${m}:${s}`;
     } else {
-        $('#timerBtn').textContent = 'Start';
+        const btn = $('#timerBtn');
+        btn.dataset.state = 'idle';
+        btn.textContent = 'Start';
     }
 }
 
@@ -127,7 +131,9 @@ function startTimer() {
     if (timer) { clearInterval(timer); timer = null; }
     remaining = secondsForTimeBucket(current.time);
     updateCountdown();
-    $('#timerBtn').textContent = 'Pause';
+    const btn = $('#timerBtn');
+    btn.dataset.state = 'running';
+    btn.textContent = 'Pause';
     timer = setInterval(() => {
         remaining -= 1;
         if (remaining <= 0) {
@@ -136,9 +142,11 @@ function startTimer() {
                 const secs = secondsForTimeBucket(current.time);
                 const m = String(Math.floor(secs / 60)).padStart(1, '0');
                 const s = String(secs % 60).padStart(2, '0');
-                $('#timerBtn').textContent = `Restart ${m}:${s}`;
+                btn.dataset.state = 'done';
+                btn.textContent = `Restart ${m}:${s}`;
             } else {
-                $('#timerBtn').textContent = 'Restart';
+                btn.dataset.state = 'done';
+                btn.textContent = 'Restart';
             }
             vibrateDone();
         } else {
@@ -150,7 +158,9 @@ function startTimer() {
 function pauseTimer() {
     if (!timer) return;
     clearInterval(timer); timer = null;
-    $('#timerBtn').textContent = 'Resume';
+    const btn = $('#timerBtn');
+    btn.dataset.state = 'paused';
+    btn.textContent = 'Resume';
 }
 
 function updateCountdown() {
@@ -233,13 +243,18 @@ function initCardControls() {
         renderCard(current); // refresh button state
     });
 
-    $('#timerBtn').addEventListener('click', () => {
+    $('#timerBtn').addEventListener('click', (e) => {
         if (!current) return;
-        // Safari-safe: rely on timer state, not label text
-        if (timer) {
+        const st = e.currentTarget.dataset.state;
+        if (st === 'idle' || st === 'paused' || st === 'done') {
+            startTimer();
+        } else if (st === 'running') {
             pauseTimer();
         } else {
-            startTimer();
+            // Fallback: preserve previous label-based behavior
+            const label = e.currentTarget.textContent.trim();
+            if (label.startsWith('Start') || label.startsWith('Restart') || label === 'Resume') startTimer();
+            else if (label === 'Pause') pauseTimer();
         }
     });
 }
