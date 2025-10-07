@@ -235,12 +235,11 @@ function initCardControls() {
 
     $('#timerBtn').addEventListener('click', () => {
         if (!current) return;
-        const label = $('#timerBtn').textContent.trim();
-        // Allow labels like "Start 0:30" or "Restart 3:00" as well as plain labels
-        if (label.startsWith('Start') || label.startsWith('Restart') || label === 'Resume') {
-            startTimer();
-        } else if (label === 'Pause') {
+        // Safari-safe: rely on timer state, not label text
+        if (timer) {
             pauseTimer();
+        } else {
+            startTimer();
         }
     });
 }
