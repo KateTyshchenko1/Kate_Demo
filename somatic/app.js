@@ -235,9 +235,13 @@ function initCardControls() {
 
     $('#timerBtn').addEventListener('click', () => {
         if (!current) return;
-        const label = $('#timerBtn').textContent;
-        if (label === 'Start' || label === 'Restart' || label === 'Resume') startTimer();
-        else if (label === 'Pause') pauseTimer();
+        const label = $('#timerBtn').textContent.trim();
+        // Allow labels like "Start 0:30" or "Restart 3:00" as well as plain labels
+        if (label.startsWith('Start') || label.startsWith('Restart') || label === 'Resume') {
+            startTimer();
+        } else if (label === 'Pause') {
+            pauseTimer();
+        }
     });
 }
 
