@@ -1,0 +1,313 @@
+:root {
+    color-scheme: light dark;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    color: #1b2936;
+    background:
+        radial-gradient(900px 600px at 15% 10%, #fff6fb 0%, rgba(255, 246, 251, 0) 60%),
+        radial-gradient(900px 600px at 85% 80%, #f3fbff 0%, rgba(243, 251, 255, 0) 60%),
+        #ffffff;
+}
+
+a.home {
+    position: fixed;
+    top: 14px;
+    left: 18px;
+    z-index: 10;
+    font: 400 15px -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    color: #111;
+    text-decoration: none;
+}
+
+.container {
+    min-height: 100vh;
+    display: grid;
+    place-items: start center;
+    padding: 68px 14px 24px;
+    /* leave space for Home link */
+}
+
+.screen {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden {
+    display: none
+}
+
+.intro {
+    margin: 8px 0 16px;
+    text-align: center
+}
+
+.intro h1 {
+    margin: 0 0 4px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #2a3442;
+    font-family: 'Quicksand', 'Nunito', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif
+}
+
+.intro .sub {
+    margin: 0;
+    color: #4b5563;
+    font-weight: 500
+}
+
+.group {
+    margin: 18px 0;
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+}
+
+.group-title {
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    text-align: left;
+    display: block;
+    width: fit-content;
+    justify-self: start
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: auto;
+    max-width: 100%;
+}
+
+@media (min-width: 560px) {
+    .choices {
+        gap: 12px
+    }
+}
+
+.chip {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid rgba(255, 173, 94, 0.45);
+    background: linear-gradient(180deg, #fff8ee 0%, #ffe9d6 100%);
+    color: #1b2936;
+    border-radius: 16px;
+    padding: 10px 12px;
+    font-size: 15px;
+    box-shadow: none;
+    transition: background 120ms ease, box-shadow 120ms ease, border-color 120ms ease, transform 80ms ease;
+}
+
+.chip[aria-pressed="true"],
+.chip[aria-checked="true"],
+.chip.active {
+    border-color: #f59e0b;
+    background: linear-gradient(180deg, #fff4e5 0%, #ffdcbf 100%);
+    box-shadow: 0 12px 32px rgba(255, 170, 100, 0.24), 0 20px 50px rgba(255, 130, 150, 0.14);
+}
+
+.chip:hover {
+    filter: brightness(1.02);
+}
+
+.chip:active {
+    transform: translateY(1px);
+}
+
+/* A11y focus cues */
+.chip:focus-visible,
+button:focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+}
+
+.actions {
+    margin: 12px auto 4px;
+    display: flex;
+    justify-content: center;
+    width: fit-content
+}
+
+button.primary {
+    padding: 12px 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 173, 94, 0.45);
+    background: linear-gradient(180deg, #fff8ee 0%, #ffe9d6 100%);
+    color: #1f3350;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: none;
+    transition: filter 120ms ease, transform 80ms ease;
+}
+
+button.primary:disabled {
+    opacity: .6
+}
+
+button.primary:hover {
+    filter: brightness(1.02);
+}
+
+button.primary:active {
+    transform: translateY(1px);
+}
+
+/* Warm sunrise focus for primary button */
+button.primary:focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 3px;
+}
+
+button.secondary {
+    padding: 10px 14px;
+    border-radius: 14px;
+    border: 1px solid #e9ecf3;
+    background: #fff;
+    color: #111
+}
+
+button.ghost {
+    padding: 8px 10px;
+    border: none;
+    background: transparent;
+    color: #0b2942
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 2px 0 10px
+}
+
+.pill {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #f4f1ff;
+    color: #6366f1
+}
+
+.card {
+    border: 1px solid #e9ecf3;
+    border-radius: 16px;
+    padding: 16px;
+    background: #fff;
+    box-shadow: 0 16px 48px rgba(25, 35, 55, 0.08)
+}
+
+/* Ensure no list bullets appear inside cards */
+.card ul,
+.card ol {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.card li::marker {
+    content: '';
+}
+
+.card h2 {
+    margin: 2px 0 4px;
+    font-size: 20px;
+    text-align: center
+}
+
+.meta {
+    color: #7b8798;
+    font-size: 13px;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px
+}
+
+.dot {
+    opacity: .5
+}
+
+.section h3 {
+    margin: 12px 0 6px;
+    font-size: 14px;
+    color: #4c5768
+}
+
+.bullets {
+    margin: 0;
+    padding-left: 18px
+}
+
+.bullets li {
+    margin: 4px 0
+}
+
+.howtext {
+    margin: 0;
+    padding: 0;
+    white-space: pre-line;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    justify-content: center;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.countdown {
+    margin-top: 10px;
+    font-size: 28px;
+    font-variant-numeric: tabular-nums;
+    color: #334155
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-top: 72px
+    }
+
+    .card {
+        padding: 18px
+    }
+
+    .intro h1 {
+        font-size: 28px
+    }
+}
+
+/* Vertically center when there is ample room (large, tall screens) */
+@media (min-width: 768px) and (min-height: 760px) {
+    .container {
+        place-items: center center;
+        /* horizontal + vertical center */
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important
+    }
+}

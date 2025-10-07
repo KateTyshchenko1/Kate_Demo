@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Somatic</title>
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <a class="home" id="home" href="../index.html">← Home</a>
+
+    <main id="app" class="container" aria-live="polite">
+        <!-- Screen 1: selectors -->
+        <section id="screen-select" class="screen">
+            <header class="intro">
+                <h1>Somatic</h1>
+                <p class="sub"> A minute of care for your nervous system. Select time + intention for one soothing card.
+                </p>
+            </header>
+
+            <div class="group">
+                <h2 class="group-title" id="timeGroupLabel">Time</h2>
+                <div class="choices" id="timeChoices" role="radiogroup" aria-labelledby="timeGroupLabel">
+                    <button class="chip" role="radio" aria-checked="false" data-time="0:30">0:30</button>
+                    <button class="chip" role="radio" aria-checked="false" data-time="1–3 min">1–3 min</button>
+                    <button class="chip" role="radio" aria-checked="false" data-time="3–5 min">3–5 min</button>
+                </div>
+            </div>
+
+            <div class="group">
+                <h2 class="group-title" id="goalGroupLabel">Goal</h2>
+                <div class="choices" id="goalChoices" role="radiogroup" aria-labelledby="goalGroupLabel">
+                    <button class="chip" role="radio" aria-checked="false" data-goal="Calm down">Calm down</button>
+                    <button class="chip" role="radio" aria-checked="false" data-goal="Focus/clear mind">Focus
+                    </button>
+                    <button class="chip" role="radio" aria-checked="false" data-goal="Social ease">Social ease</button>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="findBtn" class="primary" disabled>Find exercise</button>
+            </div>
+        </section>
+
+        <!-- Screen 2: card -->
+        <section id="screen-card" class="screen hidden">
+            <nav class="topbar">
+                <button id="backBtn" class="ghost">← Change</button>
+                <div id="pill" class="pill" aria-label="time and goal"></div>
+            </nav>
+
+            <article class="card" aria-live="polite">
+                <h2 id="cardName">&nbsp;</h2>
+                <div class="meta">
+                    <span id="cardTime"></span>
+                    <span class="dot">•</span>
+                    <span id="cardGoal"></span>
+                </div>
+
+                <div class="section">
+                    <h3>Try this</h3>
+                    <p id="cardHow" class="howtext"></p>
+                </div>
+
+                <div class="section">
+                    <h3>Why it helps</h3>
+                    <p id="cardWhy"></p>
+                </div>
+
+                <div class="controls">
+                    <button id="timerBtn" class="primary">Start</button>
+                    <button id="shuffleBtn" class="secondary">Shuffle</button>
+                    <button id="favBtn" class="ghost" aria-pressed="false" title="Save to favorites">☆ Favorite</button>
+                </div>
+
+                <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        // hide the Home link inside iframes (used for thumbnails)
+        if (window.self !== window.top) {
+            const h = document.getElementById('home'); if (h) h.style.display = 'none';
+        }
+    </script>
+    <script type="module" src="./app.js"></script>
+</body>
+
+</html>
