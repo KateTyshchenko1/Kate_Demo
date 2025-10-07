@@ -36,7 +36,8 @@ a.home {
 
 .screen {
     width: 100%;
-    max-width: 720px;
+    max-width: 1224px;
+    /* widened by ~70% */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -102,26 +103,44 @@ a.home {
 .chip {
     appearance: none;
     -webkit-appearance: none;
-    border: 1px solid rgba(255, 173, 94, 0.45);
-    background: linear-gradient(180deg, #fff8ee 0%, #ffe9d6 100%);
+    border: 1px solid rgba(99, 102, 241, 0.20);
+    background: linear-gradient(180deg, #eef2ff 0%, #e0e7ff 60%, #dee6ff 100%);
     color: #1b2936;
     border-radius: 16px;
     padding: 10px 12px;
     font-size: 15px;
-    box-shadow: none;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        /* soft top highlight */
+        inset 0 -1px 0 rgba(99, 102, 241, 0.12),
+        /* subtle bottom rim */
+        0 1px 2px rgba(2, 6, 23, 0.06),
+        /* tiny contact shadow */
+        0 8px 18px rgba(99, 102, 241, 0.10);
+    /* gentle lift */
     transition: background 120ms ease, box-shadow 120ms ease, border-color 120ms ease, transform 80ms ease;
 }
 
 .chip[aria-pressed="true"],
 .chip[aria-checked="true"],
 .chip.active {
-    border-color: #f59e0b;
-    background: linear-gradient(180deg, #fff4e5 0%, #ffdcbf 100%);
-    box-shadow: 0 12px 32px rgba(255, 170, 100, 0.24), 0 20px 50px rgba(255, 130, 150, 0.14);
+    border-color: #6366f1;
+    background: linear-gradient(180deg, #e7eaff 0%, #d6ddff 55%, #c7d2fe 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.90),
+        inset 0 -1px 0 rgba(99, 102, 241, 0.16),
+        0 2px 6px rgba(2, 6, 23, 0.08),
+        0 12px 28px rgba(99, 102, 241, 0.20);
+    animation: breathe 3.6s ease-in-out infinite;
 }
 
 .chip:hover {
     filter: brightness(1.02);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.88),
+        inset 0 -1px 0 rgba(99, 102, 241, 0.12),
+        0 2px 6px rgba(2, 6, 23, 0.08),
+        0 12px 26px rgba(99, 102, 241, 0.14);
 }
 
 .chip:active {
@@ -131,7 +150,7 @@ a.home {
 /* A11y focus cues */
 .chip:focus-visible,
 button:focus-visible {
-    outline: 2px solid #f59e0b;
+    outline: 2px solid #6366f1;
     outline-offset: 2px;
 }
 
@@ -145,21 +164,33 @@ button:focus-visible {
 button.primary {
     padding: 12px 18px;
     border-radius: 18px;
-    border: 1px solid rgba(255, 173, 94, 0.45);
-    background: linear-gradient(180deg, #fff8ee 0%, #ffe9d6 100%);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    background: linear-gradient(180deg, #f5f7ff 0%, #e8ecff 55%, #dee6ff 100%);
     color: #1f3350;
     font-size: 16px;
     font-weight: 600;
-    box-shadow: none;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.90),
+        inset 0 -1px 0 rgba(99, 102, 241, 0.16),
+        0 2px 8px rgba(2, 6, 23, 0.08),
+        0 14px 34px rgba(99, 102, 241, 0.18);
     transition: filter 120ms ease, transform 80ms ease;
+    animation: breathe 3.6s ease-in-out infinite;
 }
 
 button.primary:disabled {
-    opacity: .6
+    opacity: .6;
+    animation: none;
 }
 
 button.primary:hover {
     filter: brightness(1.02);
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.92),
+        inset 0 -1px 0 rgba(99, 102, 241, 0.18),
+        0 4px 10px rgba(2, 6, 23, 0.10),
+        0 18px 42px rgba(99, 102, 241, 0.22);
 }
 
 button.primary:active {
@@ -168,16 +199,20 @@ button.primary:active {
 
 /* Warm sunrise focus for primary button */
 button.primary:focus-visible {
-    outline: 2px solid #f59e0b;
+    outline: 2px solid #6366f1;
     outline-offset: 3px;
 }
 
 button.secondary {
     padding: 10px 14px;
     border-radius: 14px;
-    border: 1px solid #e9ecf3;
-    background: #fff;
-    color: #111
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    color: #111;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 1px 2px rgba(2, 6, 23, 0.06),
+        0 8px 18px rgba(15, 23, 42, 0.06);
 }
 
 button.ghost {
@@ -248,6 +283,43 @@ button.ghost {
     color: #4c5768
 }
 
+/* Ensure consistent spacing between labels and following text */
+.section p {
+    margin: 0;
+}
+
+/* Calligraphic ornament divider between sections */
+.ornament-divider {
+    display: grid;
+    place-items: center;
+    margin: 12px 0;
+    /* increased spacing above/below */
+    line-height: 0;
+    color: currentColor;
+    opacity: .18;
+}
+
+.ornament-divider .ornament {
+    width: 98%;
+    /* nearly full width; symmetrical ends visible */
+    height: 16px;
+    /* ~12–16px spec */
+}
+
+.ornament-divider .ornament-stroke {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (prefers-color-scheme: dark) {
+    .ornament-divider {
+        opacity: .28;
+    }
+}
+
 .bullets {
     margin: 0;
     padding-left: 18px
@@ -277,6 +349,19 @@ button.ghost {
     font-size: 28px;
     font-variant-numeric: tabular-nums;
     color: #334155
+}
+
+/* Gentle breathing glow used for primary and active chips */
+@keyframes breathe {
+
+    0%,
+    100% {
+        box-shadow: 0 10px 28px rgba(99, 102, 241, 0.12), 0 20px 50px rgba(99, 102, 241, 0.08);
+    }
+
+    50% {
+        box-shadow: 0 14px 38px rgba(99, 102, 241, 0.20), 0 28px 60px rgba(99, 102, 241, 0.12);
+    }
 }
 
 @media (min-width: 768px) {

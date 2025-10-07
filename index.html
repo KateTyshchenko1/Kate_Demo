@@ -99,6 +99,19 @@
             pointer-events: none;
         }
 
+        /* Lottie player should behave like the iframe thumbnails: fill, no clicks */
+        .thumb dotlottie-player {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: block;
+            /* zoom to cover like object-fit: cover; crop overflow */
+            transform: scale(1.22);
+            transform-origin: center center;
+        }
+
         .thumb iframe.dandy {
             transform: scale(1.35) translate(-12%, -8%);
             transform-origin: top left;
@@ -121,8 +134,10 @@
     <ul class="projects">
         <li>
             <a class="proj" href="somatic/index.html">
-                <div class="thumb"><iframe src="somatic/index.html" loading="lazy"
-                        sandbox="allow-scripts allow-same-origin"></iframe></div>
+                <div class="thumb">
+                    <dotlottie-player id="somaticLottie" src="/Flowering.lottie" renderer="canvas" loop autoplay="false"
+                        aria-hidden="true"></dotlottie-player>
+                </div>
                 <span class="title">Somatic</span>
             </a>
         </li>
@@ -163,5 +178,37 @@
         </li>
     </ul>
 </body>
+
+<!-- Lightweight Lottie web component -->
+<script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.9/dist/dotlottie-player.mjs"></script>
+<script>
+    // Play/pause Somatic tile animation only when visible; honor Reduced Motion
+    (function () {
+        const player = document.getElementById('somaticLottie');
+        if (!player) return;
+        const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let isVisible = false;
+
+        const applyState = () => {
+            if (mql.matches) { player.pause(); return; }
+            if (isVisible) { player.play(); } else { player.pause(); }
+        };
+
+        const onReady = () => {
+            applyState();
+            const io = new IntersectionObserver((entries) => {
+                isVisible = entries.some(e => e.isIntersecting);
+                applyState();
+            }, { threshold: 0.25 });
+            io.observe(player);
+
+            if (mql.addEventListener) mql.addEventListener('change', applyState);
+            else if (mql.addListener) mql.addListener(applyState);
+        };
+
+        // Wait for the player to be ready before controlling it
+        player.addEventListener('ready', onReady, { once: true });
+    })();
+</script>
 
 </html>
