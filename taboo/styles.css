@@ -55,7 +55,8 @@ button { font: inherit; }
 
 .hero .eyebrow { grid-column: 1 / -1; margin: 0; color: var(--red); }
 .hero h1 { margin: 0; font: 500 clamp(5.8rem, 15vw, 14rem)/.72 var(--display); letter-spacing: -.075em; }
-.lede { align-self: end; max-width: 20ch; margin: 0; font: 500 clamp(2rem, 4.2vw, 4.6rem)/.97 var(--display); letter-spacing: -.04em; }
+.lede { align-self: end; max-width: 24ch; margin: 0; font: 500 clamp(1.9rem, 3vw, 3.3rem)/1 var(--display); letter-spacing: -.035em; }
+.lede a { color: inherit; text-decoration-color: var(--red); text-decoration-thickness: .06em; text-underline-offset: .12em; }
 .thesis { max-width: 42ch; margin: 26px 0 0; color: var(--body); font-size: clamp(1.05rem, 1.6vw, 1.35rem); line-height: 1.55; }
 .start-link { grid-column: 2; display: flex; justify-content: space-between; margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--red); text-decoration: none; font-style: italic; }
 
