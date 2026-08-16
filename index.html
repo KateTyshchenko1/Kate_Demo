@@ -270,6 +270,29 @@
             text-align: center;
         }
 
+        .taboo-thumb {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            background: var(--ink);
+            color: var(--paper-light);
+        }
+
+        .taboo-thumb span {
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            font: 500 clamp(2.2rem, 5vw, 5rem)/.85 var(--display);
+            letter-spacing: -.05em;
+            text-align: center;
+        }
+
+        .taboo-thumb span:last-child {
+            border-left: 1px solid #665e52;
+            color: #d99480;
+            transform: rotate(180deg);
+        }
+
         .quotes {
             max-width: 1600px;
             margin: clamp(90px, 11vw, 160px) auto 0;
@@ -408,7 +431,7 @@
                 <p class="section-kicker">Selected work</p>
                 <h2 class="section-title">Experiments</h2>
             </div>
-            <p class="section-count">Seven small worlds, still in motion.</p>
+            <p class="section-count">Eight small worlds, still in motion.</p>
         </div>
         <ul class="projects">
         <li>
@@ -460,6 +483,12 @@
             <a class="proj" href="vision-board/index.html">
                 <div class="thumb vision-thumb"><span>Make space for what’s next.</span></div>
                 <span class="project-meta"><span class="title">Vision board</span><span class="project-number">07</span></span>
+            </a>
+        </li>
+        <li>
+            <a class="proj" href="taboo/index.html">
+                <div class="thumb taboo-thumb" aria-hidden="true"><span>Tab</span><span>oo</span></div>
+                <span class="project-meta"><span class="title">Taboo <small>The unofficial R&amp;D lab</small></span><span class="project-number">08</span></span>
             </a>
         </li>
         </ul>
