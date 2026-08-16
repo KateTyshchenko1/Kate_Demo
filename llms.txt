@@ -4,8 +4,9 @@
 
 ## Main pages
 
-- [Home](https://unramble.me/): The index of seven interactive experiments and a collection of favorite quotes.
+- [Home](https://unramble.me/): The index of eight interactive experiments and a collection of favorite quotes.
 - [Vision Board](https://unramble.me/vision-board/): A public shared canvas for arranging words, photos, emojis, and AI-generated images. Viewing is public; editing is passcode-protected.
+- [Taboo](https://unramble.me/taboo/): A researched interactive timeline of how adult and taboo industries adopted, stress-tested, and complicated emerging technology.
 
 ## Interactive experiments
 
