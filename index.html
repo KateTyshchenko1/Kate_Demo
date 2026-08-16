@@ -6,88 +6,197 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Kate • Experiments</title>
     <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            color-scheme: light dark
+            color-scheme: light;
+            --paper: #f3ead7;
+            --paper-light: #fbf4e6;
+            --ink: #191713;
+            --body-ink: #4c443b;
+            --muted: #756b5f;
+            --line: #d4c3a7;
+            --accent: #9a4939;
+            --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+            --display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+            --mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background: var(--paper);
         }
 
         body {
             margin: 0;
-            /* left-align column like sidebar.io */
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-            padding: clamp(20px, 3vw, 36px) clamp(10px, 3.5vw, 40px);
-            /* smaller side gutters */
-            background: #fff;
+            min-height: 100vh;
+            color: var(--ink);
+            font-family: var(--serif);
+            background-color: var(--paper);
+            background-image:
+                linear-gradient(90deg, rgba(113, 94, 66, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 18% 6%, rgba(255, 255, 255, 0.44), transparent 35%);
+            background-size: 48px 100%, 100% 100%;
         }
 
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin: 0 0 24px 0
+        a {
+            color: inherit;
         }
 
-        /* Hero */
         .hero {
-            margin: 8px 0 clamp(24px, 4.5vw, 40px);
-            max-width: 60ch;
+            min-height: min(680px, 78vh);
+            padding: clamp(28px, 4vw, 64px) clamp(24px, 6vw, 96px) clamp(36px, 5vw, 72px);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .kicker,
+        .scroll-cue,
+        .section-kicker,
+        .project-number {
+            margin: 0;
+            color: var(--accent);
+            font: 700 0.68rem/1.4 var(--mono);
+            letter-spacing: 0.17em;
+            text-transform: uppercase;
+        }
+
+        .hero-copy {
+            align-self: end;
+            max-width: 900px;
         }
 
         .hero-title {
-            font-size: clamp(1.9rem, 2.5vw + 1rem, 2.6rem);
-            font-weight: 700;
-            margin: 0 0 4px 0;
-            color: #1f2937;
+            max-width: 8ch;
+            margin: 0 0 clamp(18px, 2vw, 28px);
+            font-family: var(--display);
+            font-size: clamp(4.3rem, 11.5vw, 10.5rem);
+            font-weight: 480;
+            font-variation-settings: "opsz" 110;
+            letter-spacing: -0.055em;
+            line-height: 0.82;
         }
 
         .hero-subtitle {
-            font-size: clamp(1.05rem, 1.2vw + 0.6rem, 1.25rem);
-            margin: 0 0 6px 0;
-            color: #555;
+            margin: 0 0 4px;
+            color: var(--ink);
+            font-size: clamp(1.3rem, 2vw, 1.75rem);
             font-weight: 600;
-            letter-spacing: 0.2px;
         }
 
         .hero-body {
-            font-size: clamp(0.98rem, 0.8vw + 0.6rem, 1.08rem);
-            margin: 0 0 20px 0;
-            color: #444;
+            max-width: 37ch;
+            margin: 0;
+            color: var(--body-ink);
+            font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+            line-height: 1.5;
         }
 
-        /* Section title (Projects) */
+        .scroll-cue {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 36px;
+            color: var(--muted);
+        }
+
+        .scroll-cue::before {
+            width: 46px;
+            height: 1px;
+            background: var(--line);
+            content: "";
+        }
+
+        .work {
+            padding: clamp(56px, 8vw, 112px) clamp(24px, 6vw, 96px) clamp(72px, 9vw, 128px);
+        }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: end;
+            gap: 24px;
+            max-width: 1600px;
+            margin: 0 auto clamp(30px, 4vw, 54px);
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
         .section-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin: 0 0 16px 0;
-            color: #1f2937;
+            margin: 8px 0 0;
+            font-family: var(--display);
+            font-size: clamp(2.6rem, 5vw, 5.2rem);
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+        }
+
+        .section-count {
+            margin: 0 0 4px;
+            color: var(--muted);
+            font-style: italic;
         }
 
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(28px, 4vw, 64px) clamp(18px, 2.5vw, 40px);
+            max-width: 1600px;
             padding: 0;
-            margin: 0;
-            list-style: none
+            margin: 0 auto;
+            list-style: none;
         }
 
         .proj {
-            display: block;
+            display: grid;
+            gap: 13px;
             text-decoration: none;
-            color: #111
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            padding-top: 1px;
+        }
+
+        .title {
+            font-family: var(--display);
+            font-size: clamp(1.35rem, 2vw, 2rem);
+            font-weight: 520;
+            letter-spacing: -0.025em;
+            line-height: 1.05;
         }
 
         .thumb {
             position: relative;
             width: 100%;
-            aspect-ratio: 16/9;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            aspect-ratio: 4/3;
+            border: 1px solid var(--line);
+            border-radius: 1px;
             overflow: hidden;
-            background: #fff
+            background: var(--paper-light);
+            box-shadow: 0 12px 32px rgba(44, 33, 22, 0.06);
+            transition: transform 220ms ease, box-shadow 220ms ease;
         }
 
-        .thumb.square {
-            aspect-ratio: 1/1;
+        .proj:hover .thumb,
+        .proj:focus-visible .thumb {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 42px rgba(44, 33, 22, 0.13);
+        }
+
+        .proj:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 8px;
         }
 
         .thumb iframe {
@@ -97,9 +206,9 @@
             height: 100%;
             border: 0;
             pointer-events: none;
+            background: #fff;
         }
 
-        /* Lottie player should behave like the iframe thumbnails: fill, no clicks */
         .thumb dotlottie-player {
             position: absolute;
             inset: 0;
@@ -107,7 +216,6 @@
             height: 100%;
             pointer-events: none;
             display: block;
-            /* zoom to cover like object-fit: cover; crop overflow */
             transform: scale(1.22);
             transform-origin: center center;
         }
@@ -118,65 +226,132 @@
         }
 
         .title small {
-            font-size: 0.75em;
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            font-family: var(--serif);
+            font-size: 0.48em;
             font-weight: 400;
-            color: #666
+            letter-spacing: 0;
+        }
+
+        @media (max-width: 900px) {
+            .projects {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 580px) {
+            body {
+                background-size: 32px 100%, 100% 100%;
+            }
+
+            .hero {
+                min-height: 70svh;
+                padding-inline: 20px;
+            }
+
+            .hero-title {
+                font-size: clamp(4rem, 22vw, 6.6rem);
+            }
+
+            .work {
+                padding-inline: 20px;
+            }
+
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .section-count {
+                display: none;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+                gap: 42px;
+            }
+
+            .thumb {
+                aspect-ratio: 4/3;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .thumb {
+                transition: none;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="hero">
-        <h1 class="hero-title">Kate Tyshchenko</h1>
-        <p class="hero-subtitle">Beta Forever</p>
-        <p class="hero-body">Traces of ideas before they harden.</p>
-    </div>
-    <ul class="projects">
+    <header class="hero">
+        <p class="kicker">Unramble · An index of experiments</p>
+        <div class="hero-copy">
+            <h1 class="hero-title">Kate Tyshchenko</h1>
+            <p class="hero-subtitle">Beta Forever</p>
+            <p class="hero-body">Traces of ideas before they harden.</p>
+        </div>
+        <p class="scroll-cue">Scroll to explore</p>
+    </header>
+    <main class="work">
+        <div class="section-header">
+            <div>
+                <p class="section-kicker">Selected work</p>
+                <h2 class="section-title">Experiments</h2>
+            </div>
+            <p class="section-count">Six small worlds, still in motion.</p>
+        </div>
+        <ul class="projects">
         <li>
             <a class="proj" href="somatic/index.html">
                 <div class="thumb">
                     <dotlottie-player id="somaticLottie" src="/Flowering.lottie" renderer="canvas" loop autoplay="false"
                         aria-hidden="true"></dotlottie-player>
                 </div>
-                <span class="title">Somatic</span>
+                <span class="project-meta"><span class="title">Somatic</span><span class="project-number">01</span></span>
             </a>
         </li>
         <li>
             <a class="proj" href="dandelions/index.html">
                 <div class="thumb"><iframe class="dandy" src="dandelions/index.html" loading="lazy"
                         sandbox="allow-scripts allow-same-origin"></iframe></div>
-                <span class="title">Dandelions</span>
+                <span class="project-meta"><span class="title">Dandelions</span><span class="project-number">02</span></span>
             </a>
         </li>
         <li>
             <a class="proj" href="seedrift/index.html">
                 <div class="thumb"><iframe src="seedrift/index.html" loading="lazy"
                         sandbox="allow-scripts allow-same-origin"></iframe></div>
-                <span class="title">Breath <small>(requires mic access)</small></span>
+                <span class="project-meta"><span class="title">Breath <small>Requires mic access</small></span><span
+                        class="project-number">03</span></span>
             </a>
         </li>
         <li>
             <a class="proj" href="themes/index.html">
                 <div class="thumb"><iframe src="themes/index.html" loading="lazy"
                         sandbox="allow-scripts allow-same-origin"></iframe></div>
-                <span class="title">Applied chaos</span>
+                <span class="project-meta"><span class="title">Applied chaos</span><span class="project-number">04</span></span>
             </a>
         </li>
         <li>
             <a class="proj" href="rorschach/index.html">
                 <div class="thumb"><iframe src="rorschach/index.html" loading="lazy"
                         sandbox="allow-scripts allow-same-origin"></iframe></div>
-                <span class="title">Rorschach</span>
+                <span class="project-meta"><span class="title">Rorschach</span><span class="project-number">05</span></span>
             </a>
         </li>
         <li>
             <a class="proj" href="restless/index.html">
                 <div class="thumb"><iframe src="restless/index.html" loading="lazy"
                         sandbox="allow-scripts allow-same-origin"></iframe></div>
-                <span class="title">Restless</span>
+                <span class="project-meta"><span class="title">Restless</span><span class="project-number">06</span></span>
             </a>
         </li>
-    </ul>
+        </ul>
+    </main>
 </body>
 
 <!-- Lightweight Lottie web component -->
