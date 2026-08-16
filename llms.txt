@@ -6,7 +6,7 @@
 
 - [Home](https://unramble.me/): The index of eight interactive experiments and a collection of favorite quotes.
 - [Vision Board](https://unramble.me/vision-board/): A public shared canvas for arranging words, photos, emojis, and AI-generated images. Viewing is public; editing is passcode-protected.
-- [Taboo](https://unramble.me/taboo/): A researched interactive timeline of how adult and taboo industries adopted, stress-tested, and complicated emerging technology.
+- [Taboo](https://unramble.me/taboo/): A clear, researched timeline of how porn pushed online payments, streaming, webcams, privacy tools, VR, and AI safeguards.
 
 ## Interactive experiments
 
