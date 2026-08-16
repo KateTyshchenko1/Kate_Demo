@@ -1,0 +1,17 @@
+# Unramble
+
+> Unramble is Kate Tyshchenko's evolving collection of interactive experiments, ideas, and a shared AI-powered vision board.
+
+## Main pages
+
+- [Home](https://unramble.me/): The index of seven interactive experiments and a collection of favorite quotes.
+- [Vision Board](https://unramble.me/vision-board/): A public shared canvas for arranging words, photos, emojis, and AI-generated images. Viewing is public; editing is passcode-protected.
+
+## Interactive experiments
+
+- [Somatic](https://unramble.me/somatic/): Short somatic care prompts for the nervous system.
+- [Dandelions](https://unramble.me/dandelions/): A gentle interactive dandelion experience.
+- [Seedrift](https://unramble.me/seedrift/): A breath-controlled seed experiment.
+- [Applied Chaos](https://unramble.me/themes/): An interactive map of themes and connections.
+- [Rorschach](https://unramble.me/rorschach/): An interactive inkblot experiment.
+- [Restless](https://unramble.me/restless/): A generative visual experiment.
