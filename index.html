@@ -74,10 +74,10 @@
         }
 
         .hero-title {
-            max-width: 8ch;
+            max-width: 10ch;
             margin: 0 0 clamp(18px, 2vw, 28px);
             font-family: var(--display);
-            font-size: clamp(4.3rem, 11.5vw, 10.5rem);
+            font-size: clamp(4rem, 9vw, 8rem);
             font-weight: 480;
             font-variation-settings: "opsz" 110;
             letter-spacing: -0.055em;
@@ -89,6 +89,14 @@
             color: var(--ink);
             font-size: clamp(1.3rem, 2vw, 1.75rem);
             font-weight: 600;
+        }
+
+        .byline {
+            margin: 0 0 18px;
+            color: var(--muted);
+            font: 700 0.72rem/1.4 var(--mono);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .hero-body {
@@ -235,9 +243,81 @@
             letter-spacing: 0;
         }
 
+        .vision-thumb {
+            display: grid;
+            place-items: center;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(113, 94, 66, 0.1) 1px, transparent 1px),
+                var(--paper-light);
+            background-size: 32px 100%;
+        }
+
+        .vision-thumb span {
+            max-width: 8ch;
+            color: var(--accent);
+            font: 500 clamp(2rem, 4vw, 4rem)/0.95 var(--display);
+            text-align: center;
+        }
+
+        .quotes {
+            max-width: 1600px;
+            margin: clamp(90px, 11vw, 160px) auto 0;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+        }
+
+        .quotes-title {
+            max-width: 10ch;
+            margin: 8px 0 clamp(34px, 5vw, 64px);
+            font: 500 clamp(2.6rem, 5vw, 5.2rem)/0.95 var(--display);
+            letter-spacing: -0.04em;
+        }
+
+        .quote-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1px;
+            padding: 1px;
+            background: var(--line);
+        }
+
+        blockquote {
+            grid-column: span 4;
+            min-height: 220px;
+            display: flex;
+            align-items: flex-end;
+            margin: 0;
+            padding: clamp(24px, 3vw, 42px);
+            background: var(--paper-light);
+            color: var(--body-ink);
+            font-size: clamp(1.25rem, 2vw, 1.8rem);
+            line-height: 1.28;
+        }
+
+        blockquote.featured {
+            grid-column: span 6;
+            min-height: 290px;
+            color: var(--ink);
+            font: 500 clamp(2rem, 3.6vw, 3.8rem)/1.04 var(--display);
+            letter-spacing: -0.035em;
+        }
+
+        blockquote::before {
+            align-self: flex-start;
+            margin-right: 12px;
+            color: var(--accent);
+            content: "“";
+        }
+
         @media (max-width: 900px) {
             .projects {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            blockquote,
+            blockquote.featured {
+                grid-column: span 6;
             }
         }
 
@@ -252,7 +332,7 @@
             }
 
             .hero-title {
-                font-size: clamp(4rem, 22vw, 6.6rem);
+                font-size: clamp(3.6rem, 17vw, 5.2rem);
             }
 
             .work {
@@ -273,6 +353,21 @@
                 gap: 42px;
             }
 
+
+            .quote-grid {
+                display: block;
+                padding: 0;
+                background: transparent;
+            }
+
+            blockquote,
+            blockquote.featured {
+                min-height: 0;
+                margin-top: -1px;
+                border: 1px solid var(--line);
+                font-size: clamp(1.35rem, 7vw, 2.15rem);
+            }
+
             .thumb {
                 aspect-ratio: 4/3;
             }
@@ -288,9 +383,10 @@
 
 <body>
     <header class="hero">
-        <p class="kicker">Unramble · An index of experiments</p>
+        <p class="kicker">An index of experiments</p>
         <div class="hero-copy">
-            <h1 class="hero-title">Kate Tyshchenko</h1>
+            <h1 class="hero-title">Unramble</h1>
+            <p class="byline">By Kate Tyshchenko</p>
             <p class="hero-subtitle">Beta Forever</p>
             <p class="hero-body">Traces of ideas before they harden.</p>
         </div>
@@ -302,7 +398,7 @@
                 <p class="section-kicker">Selected work</p>
                 <h2 class="section-title">Experiments</h2>
             </div>
-            <p class="section-count">Six small worlds, still in motion.</p>
+            <p class="section-count">Seven small worlds, still in motion.</p>
         </div>
         <ul class="projects">
         <li>
@@ -350,7 +446,26 @@
                 <span class="project-meta"><span class="title">Restless</span><span class="project-number">06</span></span>
             </a>
         </li>
+        <li>
+            <a class="proj" href="vision-board/index.html">
+                <div class="thumb vision-thumb"><span>Make space for what’s next.</span></div>
+                <span class="project-meta"><span class="title">Vision board</span><span class="project-number">07</span></span>
+            </a>
+        </li>
         </ul>
+        <section class="quotes" aria-labelledby="quotes-title">
+            <p class="section-kicker">Things worth keeping</p>
+            <h2 class="quotes-title" id="quotes-title">Notes to return to</h2>
+            <div class="quote-grid">
+                <blockquote>Excellence is the capacity to endure pain.</blockquote>
+                <blockquote>If you have great ideas, no one will remember the bad ones.</blockquote>
+                <blockquote>Problems are just opportunities in work clothes.</blockquote>
+                <blockquote class="featured"><strong>Self-awareness takes practice.</strong></blockquote>
+                <blockquote class="featured"><strong>The secret to life is being willing to die.</strong></blockquote>
+                <blockquote>Human perception is merely light perceiving light.</blockquote>
+                <blockquote>If every Jenga move were perfect, the game wouldn’t work.</blockquote>
+            </div>
+        </section>
     </main>
 </body>
 

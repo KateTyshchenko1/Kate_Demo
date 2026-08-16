@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vision Board · Unramble</title>
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="home" href="/">← Unramble</a>
+        <div>
+            <p class="kicker">A place to imagine</p>
+            <h1>Vision board</h1>
+        </div>
+        <p class="save-state" id="saveState" role="status">Saved in this browser</p>
+    </header>
+
+    <main>
+        <aside class="tools" aria-label="Vision board tools">
+            <section class="unlock-panel">
+                <p class="tool-label">Editing</p>
+                <form id="unlockForm">
+                    <label class="sr-only" for="passcode">Editing passcode</label>
+                    <input id="passcode" type="password" autocomplete="current-password" placeholder="Enter editing passcode">
+                    <button type="submit" id="unlockButton">Unlock board</button>
+                    <p class="hint" id="accessHint">Everyone can view. Only Kate can edit.</p>
+                </form>
+            </section>
+            <section>
+                <p class="tool-label">Add words</p>
+                <form id="textForm">
+                    <label class="sr-only" for="textInput">Words to add</label>
+                    <textarea id="textInput" maxlength="180" placeholder="What do you want to remember?"></textarea>
+                    <button type="submit">Add to board</button>
+                </form>
+            </section>
+            <section>
+                <p class="tool-label">Create an image</p>
+                <form id="imageForm">
+                    <label class="sr-only" for="imagePrompt">Describe an image</label>
+                    <textarea id="imagePrompt" maxlength="1000" placeholder="A sunlit studio overlooking the sea…"></textarea>
+                    <button type="submit" id="generateButton">Generate with AI</button>
+                    <p class="hint">Generated with OpenAI GPT Image and saved to this shared board.</p>
+                </form>
+            </section>
+            <button class="quiet-button" id="clearBoard" type="button">Clear board</button>
+        </aside>
+
+        <section class="workspace" aria-label="Vision board canvas">
+            <div class="canvas" id="canvas">
+                <p class="empty-message" id="emptyMessage">Add a thought or make an image.<br>Then move it until it feels right.</p>
+            </div>
+        </section>
+    </main>
+
+    <template id="itemTemplate">
+        <article class="board-item" tabindex="0">
+            <div class="item-content"></div>
+            <button class="remove" type="button" aria-label="Remove item">×</button>
+            <button class="resize" type="button" aria-label="Resize item"></button>
+        </article>
+    </template>
+    <script src="app.js" defer></script>
+</body>
+</html>
