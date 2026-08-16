@@ -61,7 +61,7 @@ button { font: inherit; }
 
 .calibration { padding: clamp(70px, 9vw, 130px) clamp(20px, 7vw, 110px); border-block: 1px solid var(--line); background: var(--paper-light); }
 .calibration > .eyebrow { margin: 0 0 32px; color: var(--red); }
-.calibration-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+.calibration-grid { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); }
 .calibration-grid p { min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; margin: 0; padding: 24px; }
 .calibration-grid p + p { border-left: 1px solid var(--line); }
 .calibration-grid strong { font: 500 clamp(1.8rem, 3vw, 3rem)/1 var(--display); }
@@ -134,8 +134,6 @@ footer a { color: #d99480; }
     .hero h1 { font-size: clamp(5.4rem, 25vw, 9rem); }
     .lede { max-width: 15ch; }
     .calibration-grid { grid-template-columns: repeat(2, 1fr); }
-    .calibration-grid p:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
-    .calibration-grid p:nth-child(4) { border-top: 1px solid var(--line); }
     .timeline-shell { display: block; }
     .readout { top: 62px; z-index: 10; height: auto; display: grid; grid-template-columns: 1fr auto; gap: 4px 18px; padding: 14px 20px; border-right: 0; border-bottom: 1px solid var(--line); }
     .readout-label, .readout-title { display: none; }
