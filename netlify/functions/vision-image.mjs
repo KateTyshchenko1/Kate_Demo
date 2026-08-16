@@ -30,7 +30,7 @@ export default async (request) => {
         const response = await fetch('https://api.openai.com/v1/images/generations', {
             method: 'POST',
             headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'content-type': 'application/json' },
-            body: JSON.stringify({ model: 'gpt-image-2', prompt: cleanPrompt, size: '1024x1024', quality: 'medium', n: 1 })
+            body: JSON.stringify({ model: 'gpt-image-2', prompt: cleanPrompt, size: '1024x1024', quality: 'low', n: 1 })
         });
         const result = await response.json();
         if (!response.ok) return reply({ error: result.error?.message || 'OpenAI could not create that image.' }, response.status);
