@@ -16,8 +16,8 @@ function cleanItems(items) {
     if (!Array.isArray(items) || items.length > 100) throw new Error('Invalid board.');
     return items.map((item) => ({
         id: String(item.id).slice(0, 80),
-        type: item.type === 'image' ? 'image' : 'text',
-        ...(item.type === 'image' ? { imageId: String(item.imageId).slice(0, 100), prompt: String(item.prompt || '').slice(0, 1000) } : { text: String(item.text || '').slice(0, 180) }),
+        type: item.type === 'image' ? 'image' : item.type === 'emoji' ? 'emoji' : 'text',
+        ...(item.type === 'image' ? { imageId: String(item.imageId).slice(0, 100), prompt: String(item.prompt || '').slice(0, 1000), alt: String(item.alt || '').slice(0, 180) } : { text: String(item.text || '').slice(0, 180) }),
         x: Number(item.x) || 0,
         y: Number(item.y) || 0,
         w: Math.min(Math.max(Number(item.w) || 200, 80), 700),

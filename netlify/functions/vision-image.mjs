@@ -16,9 +16,9 @@ export default async (request) => {
     if (request.method === 'GET') {
         const id = new URL(request.url).searchParams.get('id') || '';
         if (!/^[a-f0-9-]{36}$/.test(id)) return new Response('Not found', { status: 404 });
-        const image = await store.get(id, { type: 'arrayBuffer', consistency: 'strong' });
-        if (!image) return new Response('Not found', { status: 404 });
-        return new Response(image, { headers: { 'content-type': 'image/png', 'cache-control': 'public, max-age=31536000, immutable' } });
+        const entry = await store.getWithMetadata(id, { type: 'arrayBuffer', consistency: 'strong' });
+        if (!entry) return new Response('Not found', { status: 404 });
+        return new Response(entry.data, { headers: { 'content-type': entry.metadata?.contentType || 'image/png', 'cache-control': 'public, max-age=31536000, immutable' } });
     }
     if (request.method !== 'POST') return reply({ error: 'Method not allowed.' }, 405);
     if (!authorized(request)) return reply({ error: 'That passcode is not correct.' }, 401);
@@ -37,7 +37,7 @@ export default async (request) => {
         const encoded = result.data?.[0]?.b64_json;
         if (!encoded) return reply({ error: 'No image was returned.' }, 502);
         const id = randomUUID();
-        await store.set(id, Buffer.from(encoded, 'base64'));
+        await store.set(id, Buffer.from(encoded, 'base64'), { metadata: { contentType: 'image/png' } });
         return reply({ id });
     } catch {
         return reply({ error: 'Image generation failed. Please try again.' }, 500);

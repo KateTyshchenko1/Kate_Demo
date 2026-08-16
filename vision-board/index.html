@@ -40,6 +40,29 @@
                 </form>
             </section>
             <section>
+                <p class="tool-label">Add an emoji</p>
+                <div class="emoji-palette" id="emojiPalette" aria-label="Emoji palette">
+                    <button type="button" aria-label="Add sparkles">✨</button>
+                    <button type="button" aria-label="Add flower">🌸</button>
+                    <button type="button" aria-label="Add butterfly">🦋</button>
+                    <button type="button" aria-label="Add moon">🌙</button>
+                    <button type="button" aria-label="Add sun">☀️</button>
+                    <button type="button" aria-label="Add wave">🌊</button>
+                    <button type="button" aria-label="Add leaf">🌿</button>
+                    <button type="button" aria-label="Add heart">❤️</button>
+                    <button type="button" aria-label="Add fire">🔥</button>
+                    <button type="button" aria-label="Add star">⭐</button>
+                </div>
+            </section>
+            <section>
+                <p class="tool-label">Add a photo</p>
+                <form id="uploadForm">
+                    <label class="file-button" for="photoInput">Choose a photo</label>
+                    <input class="file-input" id="photoInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                    <p class="hint" id="photoHint">JPEG, PNG, WebP, or GIF · up to 8 MB</p>
+                </form>
+            </section>
+            <section>
                 <p class="tool-label">Create an image</p>
                 <form id="imageForm">
                     <label class="sr-only" for="imagePrompt">Describe an image</label>

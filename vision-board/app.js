@@ -4,6 +4,10 @@ const template = document.querySelector('#itemTemplate');
 const saveState = document.querySelector('#saveState');
 const textForm = document.querySelector('#textForm');
 const imageForm = document.querySelector('#imageForm');
+const uploadForm = document.querySelector('#uploadForm');
+const photoInput = document.querySelector('#photoInput');
+const photoHint = document.querySelector('#photoHint');
+const emojiPalette = document.querySelector('#emojiPalette');
 const unlockForm = document.querySelector('#unlockForm');
 const passcodeInput = document.querySelector('#passcode');
 const accessHint = document.querySelector('#accessHint');
@@ -12,6 +16,7 @@ const clearButton = document.querySelector('#clearBoard');
 
 const BOARD_ENDPOINT = '/.netlify/functions/vision-board';
 const IMAGE_ENDPOINT = '/.netlify/functions/vision-image';
+const UPLOAD_ENDPOINT = '/.netlify/functions/vision-upload';
 let items = [];
 let passcode = sessionStorage.getItem('vision-board-passcode') || '';
 let unlocked = false;
@@ -24,7 +29,7 @@ const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 function setEditing(enabled) {
     unlocked = enabled;
     document.body.classList.toggle('is-unlocked', enabled);
-    [...textForm.elements, ...imageForm.elements].forEach((el) => { el.disabled = !enabled; });
+    [...textForm.elements, ...imageForm.elements, ...uploadForm.elements, ...emojiPalette.querySelectorAll('button')].forEach((el) => { el.disabled = !enabled; });
     clearButton.disabled = !enabled;
     passcodeInput.value = enabled ? '••••••••••••' : '';
     passcodeInput.disabled = enabled;
@@ -93,7 +98,7 @@ function render() {
         if (item.type === 'image') {
             const img = new Image();
             img.src = `${IMAGE_ENDPOINT}?id=${encodeURIComponent(item.imageId)}`;
-            img.alt = item.prompt || 'Vision board image';
+            img.alt = item.prompt || item.alt || 'Vision board image';
             content.append(img);
         } else {
             content.textContent = item.text;
@@ -166,6 +171,47 @@ textForm.addEventListener('submit', (event) => {
     input.value = '';
     render();
     queueSave();
+});
+
+emojiPalette.addEventListener('click', (event) => {
+    const button = event.target.closest('button');
+    if (!button || !unlocked) return;
+    items.push({ id: uid(), type: 'emoji', text: button.textContent, x: 100 + items.length * 14, y: 100 + items.length * 12, w: 150, h: 150, z: ++topLayer });
+    render();
+    queueSave();
+});
+
+photoInput.addEventListener('change', async () => {
+    const file = photoInput.files?.[0];
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024) {
+        photoHint.textContent = 'That photo is larger than 8 MB.';
+        photoInput.value = '';
+        return;
+    }
+    photoHint.textContent = 'Uploading…';
+    try {
+        let ratio = 1;
+        try {
+            const bitmap = await createImageBitmap(file);
+            ratio = bitmap.width / bitmap.height;
+            bitmap.close();
+        } catch { /* Use a square frame when dimensions cannot be read. */ }
+        const result = await api(UPLOAD_ENDPOINT, {
+            method: 'POST',
+            headers: { 'content-type': file.type },
+            body: await file.arrayBuffer()
+        });
+        const width = 360;
+        items.push({ id: uid(), type: 'image', imageId: result.id, alt: file.name, x: 110 + items.length * 14, y: 110 + items.length * 12, w: width, h: width / ratio, z: ++topLayer });
+        render();
+        await saveBoard();
+        photoHint.textContent = 'Photo added to the shared board.';
+    } catch (error) {
+        photoHint.textContent = error.message;
+    } finally {
+        photoInput.value = '';
+    }
 });
 
 imageForm.addEventListener('submit', async (event) => {
