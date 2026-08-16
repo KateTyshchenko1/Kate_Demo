@@ -8,6 +8,9 @@ const uploadForm = document.querySelector('#uploadForm');
 const photoInput = document.querySelector('#photoInput');
 const photoHint = document.querySelector('#photoHint');
 const emojiPalette = document.querySelector('#emojiPalette');
+const fontSelect = document.querySelector('#fontSelect');
+const colorPalette = document.querySelector('#colorPalette');
+const styleHint = document.querySelector('#styleHint');
 const unlockForm = document.querySelector('#unlockForm');
 const passcodeInput = document.querySelector('#passcode');
 const accessHint = document.querySelector('#accessHint');
@@ -20,6 +23,7 @@ const UPLOAD_ENDPOINT = '/.netlify/functions/vision-upload';
 let items = [];
 let passcode = sessionStorage.getItem('vision-board-passcode') || '';
 let unlocked = false;
+let selectedId = null;
 let saveTimer;
 let topLayer = 10;
 
@@ -36,6 +40,19 @@ function setEditing(enabled) {
     unlockForm.querySelector('button').textContent = enabled ? 'Editing unlocked' : 'Unlock board';
     unlockForm.querySelector('button').disabled = enabled;
     accessHint.textContent = enabled ? 'Your changes save for everyone.' : 'Everyone can view. Only Kate can edit.';
+    updateStyleControls();
+}
+
+function updateStyleControls() {
+    const item = items.find((entry) => entry.id === selectedId);
+    const enabled = unlocked && item?.type === 'text';
+    fontSelect.disabled = !enabled;
+    colorPalette.querySelectorAll('button').forEach((button) => {
+        button.disabled = !enabled;
+        button.setAttribute('aria-pressed', String(enabled && button.dataset.color === (item.color || 'ink')));
+    });
+    if (enabled) fontSelect.value = item.font || 'display';
+    styleHint.textContent = enabled ? 'Style changes save automatically.' : 'Select a text item on the board.';
 }
 
 async function api(url, options = {}) {
@@ -83,7 +100,9 @@ function selectItem(element) {
     if (!unlocked) return;
     document.querySelectorAll('.board-item').forEach((node) => node.classList.remove('selected'));
     element.classList.add('selected');
+    selectedId = element.dataset.id;
     element.style.zIndex = ++topLayer;
+    updateStyleControls();
 }
 
 function render() {
@@ -93,6 +112,8 @@ function render() {
         const node = template.content.firstElementChild.cloneNode(true);
         node.dataset.id = item.id;
         node.classList.add(item.type);
+        if (item.type === 'text') node.classList.add(`font-${item.font || 'display'}`, `color-${item.color || 'ink'}`);
+        if (item.id === selectedId && unlocked) node.classList.add('selected');
         Object.assign(node.style, { left: `${item.x}px`, top: `${item.y}px`, width: `${item.w}px`, height: `${item.h}px`, zIndex: item.z || 1 });
         const content = node.querySelector('.item-content');
         if (item.type === 'image') {
@@ -108,7 +129,9 @@ function render() {
         node.querySelector('.remove').addEventListener('click', (event) => {
             event.stopPropagation();
             items = items.filter((entry) => entry.id !== item.id);
+            if (selectedId === item.id) selectedId = null;
             render();
+            updateStyleControls();
             queueSave();
         });
         node.querySelector('.resize').addEventListener('pointerdown', (event) => beginResize(event, node, item));
@@ -167,9 +190,31 @@ textForm.addEventListener('submit', (event) => {
     const input = document.querySelector('#textInput');
     const text = input.value.trim();
     if (!text) return;
-    items.push({ id: uid(), type: 'text', text, x: 70 + items.length * 16, y: 70 + items.length * 14, w: 280, h: 150, z: ++topLayer });
+    const id = uid();
+    items.push({ id, type: 'text', text, font: 'display', color: 'ink', x: 70 + items.length * 16, y: 70 + items.length * 14, w: 280, h: 150, z: ++topLayer });
+    selectedId = id;
     input.value = '';
     render();
+    updateStyleControls();
+    queueSave();
+});
+
+fontSelect.addEventListener('change', () => {
+    const item = items.find((entry) => entry.id === selectedId && entry.type === 'text');
+    if (!item || !unlocked) return;
+    item.font = fontSelect.value;
+    render();
+    updateStyleControls();
+    queueSave();
+});
+
+colorPalette.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-color]');
+    const item = items.find((entry) => entry.id === selectedId && entry.type === 'text');
+    if (!button || !item || !unlocked) return;
+    item.color = button.dataset.color;
+    render();
+    updateStyleControls();
     queueSave();
 });
 
@@ -245,7 +290,11 @@ clearButton.addEventListener('click', () => {
 });
 
 canvas.addEventListener('pointerdown', (event) => {
-    if (event.target === canvas) document.querySelectorAll('.board-item').forEach((node) => node.classList.remove('selected'));
+    if (event.target === canvas) {
+        selectedId = null;
+        document.querySelectorAll('.board-item').forEach((node) => node.classList.remove('selected'));
+        updateStyleControls();
+    }
 });
 
 setEditing(false);

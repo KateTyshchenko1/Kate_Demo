@@ -39,6 +39,25 @@
                     <button type="submit">Add to board</button>
                 </form>
             </section>
+            <section class="style-panel" id="stylePanel">
+                <p class="tool-label">Style selected text</p>
+                <label class="passcode-label" for="fontSelect">Typeface</label>
+                <select id="fontSelect" disabled>
+                    <option value="display">Fraunces display</option>
+                    <option value="serif">Old-style serif</option>
+                    <option value="sans">Clean sans serif</option>
+                    <option value="mono">Monospaced</option>
+                </select>
+                <span class="passcode-label">Color</span>
+                <div class="color-palette" id="colorPalette" aria-label="Text color">
+                    <button type="button" data-color="ink" aria-label="Ink black"></button>
+                    <button type="button" data-color="brick" aria-label="Brick red"></button>
+                    <button type="button" data-color="blue" aria-label="Deep blue"></button>
+                    <button type="button" data-color="green" aria-label="Olive green"></button>
+                    <button type="button" data-color="gold" aria-label="Warm gold"></button>
+                </div>
+                <p class="hint" id="styleHint">Select a text item on the board.</p>
+            </section>
             <section>
                 <p class="tool-label">Add an emoji</p>
                 <div class="emoji-palette" id="emojiPalette" aria-label="Emoji palette">
