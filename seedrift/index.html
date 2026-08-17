@@ -3,9 +3,13 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Seedrift</title>
     <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
     <script type="module" crossorigin src="assets/index-B84awPGj.js"></script>
     <!-- hide UI & auto-start when standalone -->
@@ -19,11 +23,6 @@
         .hud {
             display: grid !important
         }
-
-        body {
-            margin: 0;
-            background: #fff
-        }
     </style>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
@@ -33,13 +32,11 @@
 </head>
 
 <body>
-    <a class="home" id="home" href="../index.html"
-        style="position:fixed;top:14px;left:18px;font-size:15px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:400;text-decoration:none;color:#111;z-index:10">←
-        Home</a>
-    <div id="intro"
-        style="position:fixed;top:20px;left:50%;transform:translateX(-50%);text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;color:#111;z-index:9;pointer-events:none">
-        <h1 style="margin:0;font-size:20px;font-weight:600">Breathe out, the seeds dance.</h1>
-        <p style="margin:4px 0 0;font-size:14px;color:#444">Hold phone ~20&nbsp;cm from mouth. Your exhale sends a
+    <a class="home" id="home" href="../index.html">← Home</a>
+    <div id="intro">
+        <p class="eyebrow">Breath experiment</p>
+        <h1>Breathe out, the seeds dance.</h1>
+        <p>Hold phone ~20&nbsp;cm from mouth. Your exhale sends a
             breeze.</p>
     </div>
     <script>
