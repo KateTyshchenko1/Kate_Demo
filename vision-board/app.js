@@ -9,6 +9,8 @@ const photoInput = document.querySelector('#photoInput');
 const photoHint = document.querySelector('#photoHint');
 const emojiPalette = document.querySelector('#emojiPalette');
 const fontSelect = document.querySelector('#fontSelect');
+const fontSizeInput = document.querySelector('#fontSizeInput');
+const fontSizeValue = document.querySelector('#fontSizeValue');
 const colorPalette = document.querySelector('#colorPalette');
 const styleHint = document.querySelector('#styleHint');
 const unlockForm = document.querySelector('#unlockForm');
@@ -47,11 +49,16 @@ function updateStyleControls() {
     const item = items.find((entry) => entry.id === selectedId);
     const enabled = unlocked && item?.type === 'text';
     fontSelect.disabled = !enabled;
+    fontSizeInput.disabled = !enabled;
     colorPalette.querySelectorAll('button').forEach((button) => {
         button.disabled = !enabled;
         button.setAttribute('aria-pressed', String(enabled && button.dataset.color === (item.color || 'ink')));
     });
-    if (enabled) fontSelect.value = item.font || 'display';
+    if (enabled) {
+        fontSelect.value = item.font || 'display';
+        fontSizeInput.value = item.fontSize || 44;
+    }
+    fontSizeValue.textContent = enabled ? `${fontSizeInput.value}px` : 'Select text';
     styleHint.textContent = enabled ? 'Style changes save automatically.' : 'Select a text item on the board.';
 }
 
@@ -123,6 +130,7 @@ function render() {
             content.append(img);
         } else {
             content.textContent = item.text;
+            if (item.type === 'text') content.style.fontSize = `${clamp(Number(item.fontSize) || 44, 10, 96)}px`;
         }
         node.addEventListener('pointerdown', (event) => beginMove(event, node, item));
         node.addEventListener('focus', () => selectItem(node));
@@ -191,7 +199,7 @@ textForm.addEventListener('submit', (event) => {
     const text = input.value.trim();
     if (!text) return;
     const id = uid();
-    items.push({ id, type: 'text', text, font: 'display', color: 'ink', x: 70 + items.length * 16, y: 70 + items.length * 14, w: 280, h: 150, z: ++topLayer });
+    items.push({ id, type: 'text', text, font: 'display', fontSize: 44, color: 'ink', x: 70 + items.length * 16, y: 70 + items.length * 14, w: 280, h: 150, z: ++topLayer });
     selectedId = id;
     input.value = '';
     render();
@@ -205,6 +213,15 @@ fontSelect.addEventListener('change', () => {
     item.font = fontSelect.value;
     render();
     updateStyleControls();
+    queueSave();
+});
+
+fontSizeInput.addEventListener('input', () => {
+    const item = items.find((entry) => entry.id === selectedId && entry.type === 'text');
+    if (!item || !unlocked) return;
+    item.fontSize = Number(fontSizeInput.value);
+    fontSizeValue.textContent = `${item.fontSize}px`;
+    render();
     queueSave();
 });
 
