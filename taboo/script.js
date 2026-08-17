@@ -1,11 +1,10 @@
 const moments = [...document.querySelectorAll('.moment')];
-const filterButtons = [...document.querySelectorAll('[data-filter]')];
 const activeYear = document.querySelector('#activeYear');
 const activeTitle = document.querySelector('#activeTitle');
 const activeCount = document.querySelector('#activeCount');
 const progressBar = document.querySelector('#progressBar');
 
-let visibleMoments = moments;
+const visibleMoments = moments;
 
 function activate(moment) {
     if (!moment || moment.hidden) return;
@@ -25,15 +24,5 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-18% 0px -55% 0px', threshold: [0, .25, .75] });
 
 moments.forEach((moment) => observer.observe(moment));
-
-filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-        const filter = button.dataset.filter;
-        filterButtons.forEach((entry) => entry.setAttribute('aria-pressed', String(entry === button)));
-        moments.forEach((moment) => { moment.hidden = filter !== 'all' && moment.dataset.category !== filter; });
-        visibleMoments = moments.filter((moment) => !moment.hidden);
-        activate(visibleMoments[0]);
-    });
-});
 
 activate(moments[0]);

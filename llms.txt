@@ -6,7 +6,7 @@
 
 - [Home](https://unramble.me/): The index of eight interactive experiments and a collection of favorite quotes.
 - [Vision Board](https://unramble.me/vision-board/): A public shared canvas for arranging words, photos, emojis, and AI-generated images. Viewing is public; editing is passcode-protected.
-- [Taboo](https://unramble.me/taboo/): A fact-checked timeline of technology the porn and sex industries helped build, industrialize, stress-test, or improve.
+- [Sex Built This](https://unramble.me/taboo/): A fact-checked timeline of technology the porn and sex industries helped build, industrialize, stress-test, or improve.
 
 ## Interactive experiments
 
