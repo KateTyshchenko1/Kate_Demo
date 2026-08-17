@@ -1,4 +1,4 @@
-/* Restless — GPU particle flow with bursts of clarity.
+/* Restless - GPU particle flow with bursts of clarity.
    Uses Olon (tiny WebGL helper) + Shox noise for transform feedback update + point render.
    Color cycles across electric blue → fiery orange → midnight purple.
    Every so often, motion eases and particles lock into a constellation-like figure before dissolving. */

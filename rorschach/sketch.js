@@ -1,4 +1,4 @@
-// Rorschach Bubble-Chamber — smoother growth (decelerate + center throttle + fade-in)
+// Rorschach Bubble-Chamber - smoother growth (decelerate + center throttle + fade-in)
 
 let gDots, gRings, gPulse, paper;
 let seeds = [];
@@ -42,7 +42,7 @@ const CLUSTER_BIAS = -0.02;   // negative = more permissive overall
 // Example: const FADE_FRAMES = 10; // faster appearance
 const FADE_FRAMES = 16;       // ~0.33s @48fps
 
-// Tweak: micro structure opacities — pushed brighter
+// Tweak: micro structure opacities - pushed brighter
 const HALO_OPA = { big: 0.120, med: 0.100, small: 0.090 };
 const RIM_ALPHA = 190;
 const RIM_STROKE = 0.32;
@@ -236,7 +236,7 @@ function allowHere(x, y, cx, cy, rx, ry, tier) {
 
     const cm = clusterMask(x, y);
 
-    // Tweak: center throttle — increase to discourage center crowding
+    // Tweak: center throttle - increase to discourage center crowding
     // Example: const centerPenalty = map(d2, 0.0, 0.9, 1.20, 1.00, true);
     const centerPenalty = map(d2, 0.0, 0.9, 1.35, 1.00, true); // 1.35 at center → 1.0 towards rim
 

@@ -9,7 +9,7 @@ const data = {
     name: "applied chaos",
     value: 10,
     children: [
-        // ———————————————————
+        // -------------------
         // Journeys & Roots
         {
             name: "journeys & roots", value: 9, children: [
@@ -35,7 +35,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Peace & Care
         {
             name: "peace & care", value: 10, children: [
@@ -59,7 +59,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Minds & Learning
         {
             name: "minds & learning", value: 9, children: [
@@ -89,7 +89,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Influence & Inquiry
         {
             name: "influence & inquiry", value: 9, children: [
@@ -124,7 +124,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Art & Sound
         {
             name: "art & sound", value: 8, children: [
@@ -147,7 +147,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Wild & Bodycraft (renamed)
         {
             name: "wild & bodycraft", value: 9, children: [
@@ -158,7 +158,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Design & Play (bites & bits)
         {
             name: "design & play", value: 9, children: [
@@ -170,7 +170,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Data & Patterncraft
         {
             name: "data & patterncraft", value: 9, children: [
@@ -182,7 +182,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Cities & Systems
         {
             name: "cities & systems", value: 8, children: [
@@ -211,7 +211,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Post-Work Futures (renamed)
         {
             name: "post-work futures", value: 8, children: [
@@ -234,7 +234,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Memory & Self
         {
             name: "memory & self", value: 8, children: [
@@ -255,7 +255,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Kinship & Belonging
         {
             name: "kinship & belonging", value: 9, children: [
@@ -278,7 +278,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Curiosity Cabinet
         {
             name: "curiosity cabinet", value: 7, children: [
@@ -306,7 +306,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Cosmos & Awareness (swap + Feynman)
         {
             name: "cosmos & awareness", value: 9, children: [
@@ -317,7 +317,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Awareness & Agency (kept with prior edits)
         {
             name: "awareness & agency", value: 10, children: [
@@ -371,7 +371,7 @@ const data = {
             ]
         },
 
-        // ———————————————————
+        // -------------------
         // Books & Stories (curated; add The Idiot)
         {
             name: "books & stories", value: 9, children: [
