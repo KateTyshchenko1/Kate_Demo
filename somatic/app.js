@@ -1,4 +1,4 @@
-/* Somatic — micro-app selector + single exercise card
+/* Somatic - micro-app selector + single exercise card
    - Filter by time & goal
    - Random uniform pick with anti-repeat (last N=3)
    - Favorites (localStorage)
