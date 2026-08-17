@@ -421,22 +421,22 @@ const data = {
 
 /* === Colors: branch → color === */
 const branchColors = new Map([
-    ["journeys & roots", "#674ea7"],
-    ["peace & care", "#3EC9A7"],
-    ["minds & learning", "#8E8DF0"],
-    ["influence & inquiry", "#F59E0B"],
-    ["art & sound", "#F472B6"],
-    ["wild & bodycraft", "#22C55E"],
-    ["design & play", "#06B6D4"],
-    ["data & patterncraft", "#709cb1"],
-    ["cities & systems", "#94A3B8"],
-    ["post-work futures", "#60A5FA"],
-    ["memory & self", "#A78BFA"],
-    ["kinship & belonging", "#38761d"],
-    ["curiosity cabinet", "#8AF5B8"],
-    ["cosmos & awareness", "#C084FC"],
-    ["awareness & agency", "#38BDF8"],
-    ["books & stories", "#F59EAE"]
+    ["journeys & roots", "#765d91"],
+    ["peace & care", "#63806c"],
+    ["minds & learning", "#8a789b"],
+    ["influence & inquiry", "#b3833f"],
+    ["art & sound", "#a66d7e"],
+    ["wild & bodycraft", "#6d7c68"],
+    ["design & play", "#4f7f89"],
+    ["data & patterncraft", "#6e8790"],
+    ["cities & systems", "#7f8790"],
+    ["post-work futures", "#65809a"],
+    ["memory & self", "#947ba2"],
+    ["kinship & belonging", "#5f7548"],
+    ["curiosity cabinet", "#78a080"],
+    ["cosmos & awareness", "#936e9d"],
+    ["awareness & agency", "#507985"],
+    ["books & stories", "#b46f6f"]
 ]);
 
 const topBranch = d => {
@@ -448,23 +448,26 @@ const rScale = d3.scaleSqrt().domain([0, 10]).range([1.8, 4.5]); // slightly sma
 /* === Chart (responsive radial cluster) === */
 // ---- responsive layout -----------------------
 const M = 20;              // outer margin
-// Responsive: treat screens under 768px as "narrow" (mobile portrait)
-const isNarrow = window.innerWidth < 768;
-const LEGEND_W = isNarrow ? 0 : 240;      // legend column only on wide screens
+// Use a simplified overview on phone-sized screens.
+const isNarrow = window.innerWidth <= 900;
+const LEGEND_W = isNarrow ? 0 : 360;      // copy and legend column on wide screens
 
 const W = window.innerWidth;
 const H = window.innerHeight;
+const infoBottom = window.self === window.top
+    ? (document.getElementById('info')?.getBoundingClientRect().bottom ?? 0)
+    : 0;
 const availW = W - LEGEND_W - 2 * M;
-const availH = H - 2 * M;
-const size = Math.min(availW, availH); // square area for cluster
-const radius = size / 2 - 80;          // leave room for leaf labels
+const availH = isNarrow ? H - infoBottom - 34 : H - 2 * M;
+const size = Math.max(240, Math.min(availW, availH)); // square area for cluster
+const radius = size / 2 - (isNarrow ? 34 : 80);      // mobile only shows primary labels
 
 const cx = LEGEND_W ? (LEGEND_W + availW / 2 + M) : (W / 2);  // center when no side legend
-const cy = H / 2;                      // center vertically
+const cy = isNarrow ? infoBottom + 20 + size / 2 : H / 2;
 
 const svg = d3.create("svg")
     .attr("viewBox", [0, 0, W, H])
-    .attr("style", "width:100vw;height:100vh;display:block;font:10px system-ui, sans-serif;background:#fff;");
+    .attr("style", "width:100vw;height:100vh;display:block;font:10px 'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;background:transparent;");
 
 const gMain = svg.append("g").attr("transform", `translate(${cx},${cy})`);
 
@@ -481,8 +484,8 @@ const root = tree(
 /* Links */
 gMain.append("g")
     .attr("fill", "none")
-    .attr("stroke", "#555")
-    .attr("stroke-opacity", 0.35)
+    .attr("stroke", "#756b5f")
+    .attr("stroke-opacity", 0.32)
     .attr("stroke-width", 1.2)
     .selectAll()
     .data(root.links())
@@ -505,7 +508,7 @@ gMain.append("g")
     .attr("stroke-linejoin", "round")
     .attr("stroke-width", 3)
     .selectAll()
-    .data(root.descendants().filter(d => d.depth !== 0))
+    .data(root.descendants().filter(d => d.depth !== 0 && !isNarrow))
     .join("text")
     .attr("transform", d =>
         `rotate(${(d.x * 180 / Math.PI) - 90}) translate(${d.y},0) rotate(${d.x >= Math.PI ? 180 : 0})`)
@@ -513,15 +516,16 @@ gMain.append("g")
     .attr("x", d => (d.x < Math.PI) === !d.children ? 6 : -6)
     .attr("text-anchor", d => (d.x < Math.PI) === !d.children ? "start" : "end")
     .attr("paint-order", "stroke")
-    .attr("stroke", "white")
+    .attr("stroke", "#f3ead7")
     .attr("fill", d => branchColors.get(topBranch(d)) ?? "currentColor")
     .text(d => d.data.name);
 
 /* Legend (top-left) */
-const legendY = 160; // leave room for copy above
+const legendY = Math.max(160, infoBottom + 24);
 const legendInnerX = 24; // padding before bullets
 const legend = svg.append('g')
     .attr('font-size', 14)
+    .attr('font-family', '"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif')
     .attr('transform', `translate(${M + legendInnerX}, ${legendY})`);
 
 legend.selectAll('g')
@@ -542,8 +546,9 @@ const centerLabel = gMain.append('text')
     .attr('dy', '0.35em')
     .attr('font-size', 18)
     .attr('font-weight', 600)
-    .attr('fill', '#111')
-    .attr('opacity', 0);
+    .attr('fill', '#4c443b')
+    .attr('opacity', isNarrow ? 1 : 0)
+    .text(isNarrow ? 'applied chaos' : '');
 
 let focused = null;
 function applyFocus(branch) {
@@ -559,7 +564,10 @@ function applyFocus(branch) {
 }
 function clearFocus() {
     focused = null;
-    centerLabel.attr('opacity', 0);
+    centerLabel
+        .text(isNarrow ? 'applied chaos' : '')
+        .attr('fill', '#4c443b')
+        .attr('opacity', isNarrow ? 1 : 0);
     nodes.transition().style('opacity', 1);
     labelsTxt.transition().style('opacity', 1);
     links.transition().style('stroke-opacity', 0.35);
@@ -590,14 +598,23 @@ nodes.on('mouseover', (event, d) => highlightPath(d))
 labelsTxt.on('mouseover', (event, d) => highlightPath(d))
     .on('mouseout', clearHover);
 
+if (isNarrow) {
+    const toggleBranch = (_, d) => {
+        const branch = topBranch(d);
+        if (focused === branch) clearFocus(); else applyFocus(branch);
+    };
+    nodes.style('cursor', 'pointer').on('click', toggleBranch);
+    labelsTxt.style('cursor', 'pointer').on('click', toggleBranch);
+}
+
 // Tooltip (simple)
 const tooltip = d3.select('body').append('div')
     .style('position', 'fixed')
     .style('pointer-events', 'none')
     .style('padding', '4px 8px')
-    .style('font', '12px/1.3 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif')
-    .style('background', 'rgba(0,0,0,0.7)')
-    .style('color', '#fff')
+    .style('font', '12px/1.3 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif')
+    .style('background', 'rgba(25,23,19,0.9)')
+    .style('color', '#fbf4e6')
     .style('border-radius', '4px')
     .style('opacity', 0);
 
@@ -660,7 +677,7 @@ if (isNarrow && window.self === window.top) {
         // "Show all" pill
         const showAll = document.createElement('button');
         showAll.textContent = 'Show all';
-        showAll.style.cssText = 'grid-column:span 2;padding:6px 12px;font-size:13px;border:none;border-radius:14px;background:#eee;';
+        showAll.style.cssText = 'grid-column:span 2;padding:9px 12px;font:700 11px/1.2 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;border:1px solid #d4c3a7;border-radius:16px;background:#f3ead7;color:#9a4939;';
         showAll.addEventListener('click', () => { clearFocus(); sheet.close(); });
         listDiv.appendChild(showAll);
     }
@@ -681,6 +698,7 @@ legend.insert("rect", ":first-child")
     .attr("y", legendBox.y - 12)
     .attr("width", legendBox.width + legendInnerX + 8)
     .attr("height", legendBox.height + 24)
-    .attr("fill", "white")
-    .attr("stroke", "none")
-    .attr("rx", 6);
+    .attr("fill", "#fbf4e6")
+    .attr("fill-opacity", 0.94)
+    .attr("stroke", "#d4c3a7")
+    .attr("rx", 1);

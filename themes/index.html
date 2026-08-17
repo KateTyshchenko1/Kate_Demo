@@ -6,45 +6,181 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Applied Chaos</title>
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&display=swap"
+        rel="stylesheet">
     <style>
+        :root {
+            color-scheme: light;
+            --paper: #f3ead7;
+            --paper-light: #fbf4e6;
+            --ink: #191713;
+            --body-ink: #4c443b;
+            --line: #d4c3a7;
+            --accent: #9a4939;
+            --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+            --display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+            --mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif
+            min-height: 100vh;
+            overflow: hidden;
+            color: var(--ink);
+            font-family: var(--serif);
+            background-color: var(--paper);
+            background-image: linear-gradient(90deg, rgba(113, 94, 66, 0.08) 1px, transparent 1px);
+            background-size: 48px 100%;
         }
 
         a.home {
             position: fixed;
-            top: 14px;
-            left: 18px;
-            font-size: 15px;
+            top: 22px;
+            left: 28px;
+            color: var(--accent);
+            font: 700 0.68rem/1.4 var(--mono);
+            letter-spacing: 0.14em;
             text-decoration: none;
-            color: #111;
+            text-transform: uppercase;
             z-index: 10
+        }
+
+        #info {
+            position: fixed;
+            top: 64px;
+            left: 28px;
+            width: 310px;
+            padding: 20px;
+            border: 1px solid var(--line);
+            background: rgba(251, 244, 230, 0.94);
+            box-shadow: 0 12px 32px rgba(44, 33, 22, 0.06);
+            z-index: 10;
+        }
+
+        #info h2 {
+            margin: 0 0 10px;
+            font: 500 1.65rem/1 var(--display);
+            letter-spacing: -0.025em;
+        }
+
+        #info p {
+            margin: 0;
+            color: var(--body-ink);
+            font-size: 0.96rem;
+            line-height: 1.4;
+        }
+
+        #info .intro {
+            margin-bottom: 10px;
+        }
+
+        .mobile-guide {
+            display: none;
+        }
+
+        #legendBtn {
+            display: none;
+            position: fixed;
+            top: 12px;
+            right: 14px;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            background: var(--paper-light);
+            color: var(--ink);
+            font: 1.2rem/1 var(--mono);
+            z-index: 12;
+        }
+
+        #legendSheet {
+            width: min(92%, 480px);
+            padding: 22px 24px 28px;
+            border: 1px solid var(--line);
+            border-radius: 18px 18px 0 0;
+            background: var(--paper-light);
+            color: var(--ink);
+            font-family: var(--serif);
+        }
+
+        #legendSheet::backdrop {
+            background: rgba(25, 23, 19, 0.35);
+        }
+
+        #legendSheet h2 {
+            margin: 0 0 16px;
+            font: 500 1.5rem/1 var(--display);
+        }
+
+        #legendList {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 16px;
+            font-size: 0.82rem;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                min-height: 100dvh;
+                background-size: 32px 100%;
+            }
+
+            a.home {
+                top: 18px;
+                left: 16px;
+            }
+
+            #info {
+                top: 54px;
+                left: 12px;
+                right: 12px;
+                width: auto;
+                padding: 14px 16px;
+            }
+
+            #info h2 {
+                margin-bottom: 7px;
+                font-size: 1.35rem;
+            }
+
+            #info p {
+                font-size: 0.84rem;
+                line-height: 1.32;
+            }
+
+            .desktop-guide {
+                display: none;
+            }
+
+            .mobile-guide {
+                display: block;
+            }
         }
     </style>
 </head>
 
 <body>
-    <a class="home" id="home" href="../index.html"
-        style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;font-weight:400">← Home</a>
+    <a class="home" id="home" href="../index.html">← Home</a>
     <!-- Legend toggle (mobile) -->
-    <button id="legendBtn" aria-label="Show legend"
-        style="display:none;position:fixed;top:14px;right:18px;font-size:22px;line-height:20px;background:none;border:none;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;z-index:10">☰</button>
+    <button id="legendBtn" aria-label="Show themes">☰</button>
     <!-- Bottom-sheet style dialog that will be populated via JS on small screens -->
-    <dialog id="legendSheet"
-        style="border:none;border-radius:14px 14px 0 0;padding:20px 24px 28px;max-width:480px;width:90%;position:fixed;bottom:0;left:50%;transform:translateX(-50%);font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif">
-        <h2 style="margin:0 0 12px 0;font-size:15px;font-weight:600">Themes</h2>
-        <div id="legendList" style="display:grid;grid-template-columns:repeat(2,auto);gap:12px 18px;font-size:13px">
-        </div>
+    <dialog id="legendSheet">
+        <h2>Themes</h2>
+        <div id="legendList"></div>
     </dialog>
-    <div id="info"
-        style="position:fixed;top:48px;left:18px;max-width:240px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;z-index:10">
-        <h2 style="margin:0 0 6px 0;font-size:15px;font-weight:600">Explore</h2>
-        <p style="margin:0 0 8px;font-size:13px;line-height:1.3;color:#555">I connected my notes to see which
+    <div id="info">
+        <h2>Explore</h2>
+        <p class="intro">I connected my notes to see which
             ideas kept showing up. This mind map brings together my recurring interests, questions, and themes.</p>
-        <p style="margin:0;font-size:13px;line-height:1.3;color:#555">Click a theme to focus. Hover nodes to follow
-            connections.</p>
+        <p class="desktop-guide">Click a theme to focus. Hover nodes to follow connections.</p>
+        <p class="mobile-guide">Open the menu to focus a theme. Tap a node to follow its connections.</p>
     </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script type="module" src="script.js"></script>
