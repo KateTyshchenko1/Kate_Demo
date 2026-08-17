@@ -55,7 +55,7 @@ button { font: inherit; }
 
 .hero .eyebrow { grid-column: 1 / -1; margin: 0; color: var(--red); }
 .hero h1 { margin: 0; font: 500 clamp(5.8rem, 15vw, 14rem)/.72 var(--display); letter-spacing: -.075em; }
-.lede { align-self: end; max-width: 24ch; margin: 0; font: 500 clamp(1.9rem, 2.6vw, 3rem)/1 var(--display); letter-spacing: -.035em; }
+.lede { align-self: end; max-width: 42ch; margin: 0; color: var(--body); font: 400 clamp(1.05rem, 1.6vw, 1.35rem)/1.55 var(--serif); }
 .lede a { color: inherit; text-decoration-color: var(--red); text-decoration-thickness: .06em; text-underline-offset: .12em; }
 .thesis { max-width: 42ch; margin: 26px 0 0; color: var(--body); font-size: clamp(1.05rem, 1.6vw, 1.35rem); line-height: 1.55; }
 .start-link { grid-column: 2; display: flex; justify-content: space-between; margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--red); text-decoration: none; font-style: italic; }
@@ -133,7 +133,7 @@ footer a { color: #d99480; }
     .hero { min-height: auto; grid-template-columns: 1fr; }
     .hero .eyebrow, .start-link { grid-column: 1; }
     .hero h1 { font-size: clamp(5.4rem, 25vw, 9rem); }
-    .lede { max-width: 15ch; }
+    .lede { max-width: 34ch; }
     .calibration-grid { grid-template-columns: repeat(2, 1fr); }
     .timeline-shell { display: block; }
     .readout { top: 62px; z-index: 10; height: auto; display: grid; grid-template-columns: 1fr auto; gap: 4px 18px; padding: 14px 20px; border-right: 0; border-bottom: 1px solid var(--line); }
