@@ -522,11 +522,13 @@ gMain.append("g")
 
 /* Legend (top-left) */
 const legendY = Math.max(160, infoBottom + 24);
-const legendInnerX = 24; // padding before bullets
+const legendX = 28;
+const legendWidth = 334;
+const legendInnerX = 16;
 const legend = svg.append('g')
     .attr('font-size', 14)
     .attr('font-family', '"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif')
-    .attr('transform', `translate(${M + legendInnerX}, ${legendY})`);
+    .attr('transform', `translate(${legendX + legendInnerX}, ${legendY})`);
 
 legend.selectAll('g')
     .data(Array.from(branchColors.entries()))
@@ -694,9 +696,9 @@ document.body.appendChild(svg.node());
 
 const legendBox = legend.node().getBBox();
 legend.insert("rect", ":first-child")
-    .attr("x", legendBox.x - legendInnerX + 4)
+    .attr("x", -legendInnerX)
     .attr("y", legendBox.y - 12)
-    .attr("width", legendBox.width + legendInnerX + 8)
+    .attr("width", legendWidth)
     .attr("height", legendBox.height + 24)
     .attr("fill", "#fbf4e6")
     .attr("fill-opacity", 0.94)
