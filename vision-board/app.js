@@ -18,10 +18,12 @@ const passcodeInput = document.querySelector('#passcode');
 const accessHint = document.querySelector('#accessHint');
 const generateButton = document.querySelector('#generateButton');
 const clearButton = document.querySelector('#clearBoard');
+const toastRegion = document.querySelector('#toastRegion');
 
 const BOARD_ENDPOINT = '/.netlify/functions/vision-board';
 const IMAGE_ENDPOINT = '/.netlify/functions/vision-image';
 const UPLOAD_ENDPOINT = '/.netlify/functions/vision-upload';
+const mobileViewer = window.matchMedia('(max-width: 760px)');
 let items = [];
 let passcode = sessionStorage.getItem('vision-board-passcode') || '';
 let unlocked = false;
@@ -31,6 +33,33 @@ let topLayer = 10;
 
 const uid = () => crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+function fitMobileBoard() {
+    if (!mobileViewer.matches) {
+        canvas.style.removeProperty('--mobile-board-scale');
+        return;
+    }
+    const safeGutter = 16;
+    const availableWidth = Math.max(window.innerWidth - safeGutter, 1);
+    canvas.style.setProperty('--mobile-board-scale', String(Math.min(availableWidth / 1100, 1)));
+}
+
+function showError(message) {
+    const text = message || 'Something went wrong. Please try again.';
+    if ([...toastRegion.children].some((entry) => entry.textContent === text)) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.setAttribute('role', 'alert');
+    toast.textContent = text;
+    toastRegion.append(toast);
+    requestAnimationFrame(() => toast.classList.add('is-visible'));
+    const dismiss = () => {
+        toast.classList.remove('is-visible');
+        setTimeout(() => toast.remove(), 200);
+    };
+    toast.addEventListener('click', dismiss, { once: true });
+    setTimeout(dismiss, 5200);
+}
 
 function setEditing(enabled) {
     unlocked = enabled;
@@ -80,6 +109,7 @@ async function loadBoard() {
         saveState.textContent = 'Shared board · saved';
     } catch (error) {
         saveState.textContent = error.message;
+        showError(`Could not load the board. ${error.message}`);
     }
 }
 
@@ -100,11 +130,12 @@ async function saveBoard() {
         saveState.textContent = 'Shared board · saved';
     } catch (error) {
         saveState.textContent = error.message;
+        showError(`Could not save your changes. ${error.message}`);
     }
 }
 
 function selectItem(element) {
-    if (!unlocked) return;
+    if (!unlocked || mobileViewer.matches) return;
     document.querySelectorAll('.board-item').forEach((node) => node.classList.remove('selected'));
     element.classList.add('selected');
     selectedId = element.dataset.id;
@@ -127,6 +158,7 @@ function render() {
             const img = new Image();
             img.src = `${IMAGE_ENDPOINT}?id=${encodeURIComponent(item.imageId)}`;
             img.alt = item.prompt || item.alt || 'Vision board image';
+            img.addEventListener('error', () => showError('An image could not be loaded. Please try again later.'), { once: true });
             content.append(img);
         } else {
             content.textContent = item.text;
@@ -148,7 +180,7 @@ function render() {
 }
 
 function beginMove(event, node, item) {
-    if (!unlocked || event.target.closest('button')) return;
+    if (!unlocked || mobileViewer.matches || event.target.closest('button')) return;
     event.preventDefault();
     selectItem(node);
     const start = { x: event.clientX, y: event.clientY, left: item.x, top: item.y };
@@ -164,7 +196,7 @@ function beginMove(event, node, item) {
 }
 
 function beginResize(event, node, item) {
-    if (!unlocked) return;
+    if (!unlocked || mobileViewer.matches) return;
     event.preventDefault();
     event.stopPropagation();
     const start = { x: event.clientX, y: event.clientY, w: item.w, h: item.h };
@@ -190,6 +222,7 @@ unlockForm.addEventListener('submit', async (event) => {
     } catch (error) {
         passcode = '';
         accessHint.textContent = error.message;
+        showError(error.message);
     }
 });
 
@@ -248,6 +281,7 @@ photoInput.addEventListener('change', async () => {
     if (!file) return;
     if (file.size > 8 * 1024 * 1024) {
         photoHint.textContent = 'That photo is larger than 8 MB.';
+        showError('That photo is larger than 8 MB. Choose a smaller image.');
         photoInput.value = '';
         return;
     }
@@ -271,6 +305,7 @@ photoInput.addEventListener('change', async () => {
         photoHint.textContent = 'Photo added to the shared board.';
     } catch (error) {
         photoHint.textContent = error.message;
+        showError(`Could not add the photo. ${error.message}`);
     } finally {
         photoInput.value = '';
     }
@@ -291,6 +326,7 @@ imageForm.addEventListener('submit', async (event) => {
         await saveBoard();
     } catch (error) {
         saveState.textContent = error.message;
+        showError(`Could not generate the image. ${error.message}`);
     } finally {
         generateButton.disabled = false;
         generateButton.textContent = 'Generate with AI';
@@ -313,6 +349,10 @@ canvas.addEventListener('pointerdown', (event) => {
         updateStyleControls();
     }
 });
+
+window.addEventListener('resize', fitMobileBoard);
+mobileViewer.addEventListener('change', fitMobileBoard);
+fitMobileBoard();
 
 setEditing(false);
 if (passcode) {
