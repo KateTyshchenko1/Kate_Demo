@@ -20,7 +20,7 @@ function cleanItems(items) {
         id: String(item.id).slice(0, 80),
         type: item.type === 'image' ? 'image' : item.type === 'emoji' ? 'emoji' : 'text',
         ...(item.type === 'image' ? { imageId: String(item.imageId).slice(0, 100), prompt: String(item.prompt || '').slice(0, 1000), alt: String(item.alt || '').slice(0, 180) } : { text: String(item.text || '').slice(0, 180) }),
-        ...(item.type === 'text' ? { font: fonts.has(item.font) ? item.font : 'display', color: colors.has(item.color) ? item.color : 'ink' } : {}),
+        ...(item.type === 'text' ? { font: fonts.has(item.font) ? item.font : 'display', fontSize: Math.min(Math.max(Number(item.fontSize) || 44, 10), 96), color: colors.has(item.color) ? item.color : 'ink' } : {}),
         x: Number(item.x) || 0,
         y: Number(item.y) || 0,
         w: Math.min(Math.max(Number(item.w) || 200, 80), 700),

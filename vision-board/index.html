@@ -58,6 +58,10 @@
                     <option value="sans">Clean sans serif</option>
                     <option value="mono">Monospaced</option>
                 </select>
+                <div class="size-control">
+                    <label class="passcode-label" for="fontSizeInput">Size <output id="fontSizeValue" for="fontSizeInput">44px</output></label>
+                    <input id="fontSizeInput" type="range" min="10" max="96" step="1" value="44" disabled>
+                </div>
                 <span class="passcode-label">Color</span>
                 <div class="color-palette" id="colorPalette" aria-label="Text color">
                     <button type="button" data-color="ink" aria-label="Ink black"></button>
