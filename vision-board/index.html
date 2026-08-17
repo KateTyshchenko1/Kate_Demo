@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <title>Vision Board · Unramble</title>
     <meta name="description" content="A public, shared vision board for arranging words, photos, emojis, and AI-generated images on a freeform canvas.">
     <meta name="robots" content="index,follow,max-image-preview:large">
@@ -107,7 +107,8 @@
             <button class="quiet-button" id="clearBoard" type="button">Clear board</button>
         </aside>
 
-        <section class="workspace" aria-label="Vision board canvas">
+        <section class="workspace" aria-label="Vision board canvas" aria-describedby="mobileInstructions">
+            <p class="sr-only" id="mobileInstructions">On a phone, drag to move around the board and pinch with two fingers to zoom.</p>
             <div class="canvas" id="canvas">
                 <p class="empty-message" id="emptyMessage">Add a thought or make an image.<br>Then move it until it feels right.</p>
             </div>
@@ -121,6 +122,7 @@
             <button class="resize" type="button" aria-label="Resize item"></button>
         </article>
     </template>
+    <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="false"></div>
     <script src="app.js" defer></script>
 </body>
 </html>
