@@ -272,7 +272,7 @@
 
         .taboo-thumb {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             align-items: stretch;
             background: var(--ink);
             color: var(--paper-light);
@@ -281,16 +281,18 @@
         .taboo-thumb span {
             display: grid;
             place-items: center;
-            padding: 20px;
-            font: 500 clamp(2.2rem, 5vw, 5rem)/.85 var(--display);
+            padding: 10px;
+            font: 500 clamp(1.8rem, 3.5vw, 3.5rem)/.85 var(--display);
             letter-spacing: -.05em;
             text-align: center;
         }
 
-        .taboo-thumb span:last-child {
+        .taboo-thumb span + span {
             border-left: 1px solid #665e52;
+        }
+
+        .taboo-thumb span:nth-child(2) {
             color: #d99480;
-            transform: rotate(180deg);
         }
 
         .quotes {
@@ -487,8 +489,8 @@
         </li>
         <li>
             <a class="proj" href="taboo/index.html">
-                <div class="thumb taboo-thumb" aria-hidden="true"><span>Tab</span><span>oo</span></div>
-                <span class="project-meta"><span class="title">Taboo <small>A fact-checked technology timeline</small></span><span class="project-number">08</span></span>
+                <div class="thumb taboo-thumb" aria-hidden="true"><span>Sex</span><span>Built</span><span>This</span></div>
+                <span class="project-meta"><span class="title">Sex Built This <small>A fact-checked technology timeline</small></span><span class="project-number">08</span></span>
             </a>
         </li>
         </ul>
