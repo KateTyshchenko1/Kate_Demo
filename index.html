@@ -281,6 +281,43 @@
             color: #d99480;
         }
 
+        .stoner-thumb {
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: #0b2119;
+            color: #f2ead4;
+        }
+
+        .stoner-thumb::before,
+        .stoner-thumb::after {
+            position: absolute;
+            width: 68%;
+            aspect-ratio: 1;
+            border: 1px solid rgba(183, 206, 117, .48);
+            border-radius: 44% 56% 49% 51%;
+            content: "";
+            animation: stoner-orbit 13s linear infinite;
+        }
+
+        .stoner-thumb::after {
+            width: 42%;
+            border-color: rgba(218, 145, 71, .5);
+            animation-direction: reverse;
+            animation-duration: 9s;
+        }
+
+        .stoner-thumb span {
+            position: relative;
+            z-index: 1;
+            max-width: 7ch;
+            font: 600 clamp(2.2rem, 4vw, 4.4rem)/.8 var(--display);
+            letter-spacing: -.06em;
+            text-align: center;
+        }
+
+        @keyframes stoner-orbit { to { rotate: 1turn; } }
+
         .quotes {
             max-width: 1600px;
             margin: clamp(90px, 11vw, 160px) auto 0;
@@ -419,6 +456,12 @@
             <a class="proj" href="taboo/index.html">
                 <div class="thumb taboo-thumb" aria-hidden="true"><span>Sex</span><span>Built</span><span>This</span></div>
                 <span class="project-meta"><span class="title">Sex Built This <small>A fact-checked technology timeline</small></span><span class="project-number">08</span></span>
+            </a>
+        </li>
+        <li>
+            <a class="proj" href="stoner-ventures/index.html">
+                <div class="thumb stoner-thumb" aria-hidden="true"><span>Stoner Ventures</span></div>
+                <span class="project-meta"><span class="title">Stoner Ventures <small>Long short-term memory.</small></span><span class="project-number">09</span></span>
             </a>
         </li>
         <li>
