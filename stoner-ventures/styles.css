@@ -7,3 +7,19 @@
 
 html,body{max-width:100%;overflow-x:clip}
 @media(max-width:760px){.hero-orbit span{display:none}}
+
+/* Each portfolio scene is a real square crop. This avoids stretching the
+   original three-panel atlases into the wide editorial frames. */
+.atlas{background-size:cover;background-position:center;background-repeat:no-repeat}
+.atlas-01.slice-0{background-image:url("assets/portfolio/01-0.jpg")}
+.atlas-01.slice-1{background-image:url("assets/portfolio/01-1.jpg")}
+.atlas-01.slice-2{background-image:url("assets/portfolio/01-2.jpg")}
+.atlas-02.slice-0{background-image:url("assets/portfolio/02-0.jpg")}
+.atlas-02.slice-1{background-image:url("assets/portfolio/02-1.jpg")}
+.atlas-02.slice-2{background-image:url("assets/portfolio/02-2.jpg")}
+.atlas-03.slice-0{background-image:url("assets/portfolio/03-0.jpg")}
+.atlas-03.slice-1{background-image:url("assets/portfolio/03-1.jpg")}
+.atlas-03.slice-2{background-image:url("assets/portfolio/03-2.jpg")}
+.atlas-04.slice-0{background-image:url("assets/portfolio/04-0.jpg")}
+.atlas-04.slice-1{background-image:url("assets/portfolio/04-1.jpg")}
+.atlas-04.slice-2{background-image:url("assets/portfolio/04-2.jpg")}
