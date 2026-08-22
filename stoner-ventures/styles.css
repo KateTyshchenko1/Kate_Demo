@@ -23,3 +23,9 @@ html,body{max-width:100%;overflow-x:clip}
 .atlas-04.slice-0{background-image:url("assets/portfolio/04-0.jpg")}
 .atlas-04.slice-1{background-image:url("assets/portfolio/04-1.jpg")}
 .atlas-04.slice-2{background-image:url("assets/portfolio/04-2.jpg")}
+
+.soundtrack{position:relative;z-index:1;display:grid;grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr);gap:clamp(36px,7vw,110px);align-items:end;padding:clamp(90px,11vw,160px) clamp(20px,5vw,80px);background:var(--forest-2);border-bottom:1px solid var(--line)}
+.soundtrack-copy p{margin:0 0 16px;color:var(--moss);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.soundtrack-copy h2{max-width:7ch;margin:0;font:600 clamp(3.8rem,7vw,7.5rem)/.82 var(--display);letter-spacing:-.065em}
+.soundtrack iframe{display:block;border:0;border-radius:18px;box-shadow:0 28px 90px rgba(0,0,0,.28)}
+@media(max-width:760px){.soundtrack{grid-template-columns:1fr;align-items:start;padding-block:90px}.soundtrack iframe{height:352px;border-radius:14px}}
